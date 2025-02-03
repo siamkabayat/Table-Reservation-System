@@ -109,7 +109,6 @@ public class ReservationController implements Initializable {
             String insertedTime   = timeSlot.getValue();
             int    tableDedicated = Integer.parseInt(tableNumber.getText());
 
-
             reservationFromUi = new Reservation(name, phone, numberOfGuests, insertedDate, insertedTime, tableDedicated);
         }
 
