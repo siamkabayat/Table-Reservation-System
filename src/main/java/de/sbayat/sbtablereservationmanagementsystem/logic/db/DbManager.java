@@ -1,6 +1,7 @@
 package de.sbayat.sbtablereservationmanagementsystem.logic.db;
 
 
+import de.sbayat.sbtablereservationmanagementsystem.model.DiningTable;
 import de.sbayat.sbtablereservationmanagementsystem.model.Reservation;
 
 import java.sql.Connection;
@@ -30,8 +31,9 @@ public class DbManager {
     //endregion
 
     //region 1. Decl and Init Attribute
-    private static DbManager  instance;
+    private static DbManager      instance;
     private        DaoReservation daoReservation;
+    private        DaoDiningTable daoDiningTable;
     //endregion
 
     //region 2. Konstruktoren
@@ -41,6 +43,7 @@ public class DbManager {
      */
     private DbManager() {
         daoReservation = new DaoReservation();
+        daoDiningTable = new DaoDiningTable();
     }
     //endregion
 
@@ -78,7 +81,7 @@ public class DbManager {
             //Offenen einer Verbindung
             connection = DriverManager.getConnection(DB_LOCAL_CONNECTION_URL, DB_LOCAL_USER_NAME, DB_LOCAL_USER_PW);
         } catch (SQLNonTransientConnectionException sqlNoConnectionEx) {
-            throw new Exception("Keine Datenbankverbindung");
+            throw new Exception("No Database Connection");
         }
 
         return connection;
@@ -151,6 +154,50 @@ public class DbManager {
             System.err.println(e.getMessage());
         }
 
+    }
+
+    public void insertDiningTable(DiningTable diningTableToInsert) {
+        try {
+            if (this.isDatabaseOnline()) {
+                this.daoDiningTable.create(this.getDatabaseConnection(), diningTableToInsert);
+            }
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+    }
+
+    public List<DiningTable> readDiningTables() {
+        List<DiningTable> diningTables = new ArrayList<>();
+
+        try {
+            if (this.isDatabaseOnline()) {
+                diningTables = daoDiningTable.readAll(this.getDatabaseConnection());
+            }
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+
+        return diningTables;
+    }
+
+    public void updateDiningTable(DiningTable diningTableToUpdate) {
+        try {
+            if (this.isDatabaseOnline()) {
+                this.daoDiningTable.update(this.getDatabaseConnection(), diningTableToUpdate);
+            }
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+    }
+
+    public void deleteDiningTable(DiningTable diningTableToDelete) {
+        try {
+            if (this.isDatabaseOnline()) {
+                this.daoDiningTable.delete(this.getDatabaseConnection(), diningTableToDelete);
+            }
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
     }
 
     //endregion
