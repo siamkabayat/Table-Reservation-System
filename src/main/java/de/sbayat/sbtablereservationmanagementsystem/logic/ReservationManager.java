@@ -1,0 +1,140 @@
+package de.sbayat.sbtablereservationmanagementsystem.logic;
+
+import de.sbayat.sbtablereservationmanagementsystem.model.Reservation;
+import de.sbayat.sbtablereservationmanagementsystem.model.Table;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class ReservationManager {
+    List<Reservation> reservations;
+    List<Table>       tables;
+
+    public ReservationManager() {
+        this.reservations = new ArrayList<>();
+        this.tables       = new ArrayList<>();
+    }
+
+    public List<Reservation> getReservations() {
+        return reservations;
+    }
+
+    public void setReservations(List<Reservation> reservations) {
+        this.reservations = reservations;
+    }
+
+    public List<Table> getTables() {
+        return tables;
+    }
+
+    public void setTables(List<Table> tables) {
+        this.tables = tables;
+    }
+
+    private synchronized boolean addReservation(Reservation reservation) {
+        if (reservation == null) {
+            throw new IllegalArgumentException("Reservation can not be empty!");
+        }
+        if (!isTableAvailable(reservation.getTableNumber(), reservation.getDate(), reservation.getTime())) {
+            System.out.println("Table is not available!. Reservation can not be added.");
+            return false;
+        }
+        reservations.add(reservation);
+        return true;
+    }
+
+    private boolean updateReservation(int reservationId, Reservation updatedReservation) {
+
+        Reservation existingReservation = findReservationById(reservationId);
+        if (existingReservation == null) {
+            return false;
+        }
+
+        if (!isTableAvailable(updatedReservation.getTableNumber(), updatedReservation.getDate(), updatedReservation.getTime())) {
+            return false;
+        }
+
+        existingReservation.setCustomerName(updatedReservation.getCustomerName());
+        existingReservation.setCustomerPhoneNumber(updatedReservation.getCustomerPhoneNumber());
+        existingReservation.setPartySize(updatedReservation.getPartySize());
+        existingReservation.setDate(updatedReservation.getDate());
+        existingReservation.setTime(updatedReservation.getTime());
+        existingReservation.setTableNumber(updatedReservation.getTableNumber());
+
+        return true;
+    }
+
+    private boolean deleteReservation(int reservationId) {
+        Reservation reservationToDelete = findReservationById(reservationId);
+        if (reservationToDelete == null) {
+            return false;
+        }
+
+        reservations.remove(reservationToDelete);
+        return true;
+    }
+
+    private Reservation findReservationById(int reservationId) {
+        for (Reservation reservation : reservations) {
+            if (reservation.getId() == reservationId) {
+                return reservation;
+            }
+        }
+        return null;
+    }
+
+    private List<Reservation> findReservationsByCustomer(String customerName) {
+        List<Reservation> customerReservations = new ArrayList<>();
+        for (Reservation reservation : reservations) {
+            if (reservation.getCustomerName().equalsIgnoreCase(customerName)) {
+                customerReservations.add(reservation);
+            }
+        }
+        return customerReservations;
+    }
+
+    private List<Reservation> getAllReservations() {
+        return this.reservations;
+    }
+
+    private synchronized boolean isTableAvailable(int tableNumber, String date, String time) {
+        for (Reservation existingReservation : this.reservations) {
+            if (existingReservation.getTableNumber() == tableNumber &&
+                    existingReservation.getDate().equals(date) &&
+                    existingReservation.getTime().equals(time)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private List<Integer> getAvailableTables(String date, String time, List<Table> tables) {
+        List<Integer> availableTables = new ArrayList<>();
+        for (Table table : tables) {
+            if (isTableAvailable(table.getNumber(), date, time)) {
+                availableTables.add(table.getNumber());
+            }
+        }
+        return availableTables;
+    }
+
+    private Table getTableByNumber(int tableNumber, List<Table> tables) {
+        for (Table table : tables) {
+            if (table.getNumber() == tableNumber) {
+                return table;
+            }
+        }
+        return null;
+    }
+
+    private int getTableCapacity(int tableNumber, List<Table> tables) {
+        Table table = getTableByNumber(tableNumber, tables);
+        return table != null ? table.getCapacity() : 0;
+    }
+
+    public List<Table> getAllTables(List<Table> tables) {
+        return tables;
+    }
+
+
+}
