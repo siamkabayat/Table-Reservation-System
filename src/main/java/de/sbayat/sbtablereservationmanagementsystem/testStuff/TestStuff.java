@@ -2,6 +2,7 @@ package de.sbayat.sbtablereservationmanagementsystem.testStuff;
 
 
 import de.sbayat.sbtablereservationmanagementsystem.logic.db.DbManager;
+import de.sbayat.sbtablereservationmanagementsystem.model.DiningTable;
 import de.sbayat.sbtablereservationmanagementsystem.model.Reservation;
 
 import java.util.List;
@@ -14,10 +15,10 @@ public class TestStuff {
     public static void main(String[] args) {
 
         showDatabaseOnlineStatus();
+        showReservationsFromDatabase();
+        showDiningTablesFromDatabase();
 
-//        showLogWoodsFromDatabase();
-
-        showInsertReservationInDatabase();
+        //showInsertReservationInDatabase();
 //        showLogWoodsFromDatabase();
 
         //       showUpdateReservationInDatabase();
@@ -56,12 +57,21 @@ public class TestStuff {
         DbManager.getInstance().updateReservation(testReservation);
     }
 
-    private static void showDeleteLogWoodInDatabase() {
+    private static void showDeleteReservationInDatabase() {
         Reservation testReservation = TestData.getTestReservations().getFirst();
         testReservation.setId(2);
 
         System.out.println("DELETE>>" + testReservation.getAllAttributesAsCsvLine());
         DbManager.getInstance().deleteReservation(testReservation);
+    }
+    //TODO: add more methods for testing the dining tables
+    private static void showDiningTablesFromDatabase() {
+        List<DiningTable> DiningTablesFromDatabase = DbManager.getInstance().readDiningTables();
+
+        System.out.println("\nDining Tables from Database:");
+        for (DiningTable diningTable : DiningTablesFromDatabase) {
+            System.out.print(diningTable.getAllAttributesAsCsvLine());
+        }
     }
 
 }
