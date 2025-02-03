@@ -1,6 +1,6 @@
 package de.sbayat.sbtablereservationmanagementsystem.model;
 
-public class Table implements CsvHandling {
+public class DiningTable implements CsvHandling {
 
     private static final int SPLIT_INDEX_NUMBER       = 0;
     private static final int SPLIT_INDEX_CAPACITY     = 1;
@@ -12,14 +12,14 @@ public class Table implements CsvHandling {
     private boolean isAvailable;
     private String  location;
 
-    public Table(int number, int capacity, boolean isAvailable, String location) {
+    public DiningTable(int number, int capacity, boolean isAvailable, String location) {
         this.number      = number;
         this.capacity    = capacity;
         this.isAvailable = isAvailable;
         this.location    = location;
     }
 
-    public int getNumber() {
+    public Integer getNumber() {
         return number;
     }
 
@@ -27,7 +27,7 @@ public class Table implements CsvHandling {
         this.number = number;
     }
 
-    public int getCapacity() {
+    public Integer getCapacity() {
         return capacity;
     }
 
@@ -35,7 +35,7 @@ public class Table implements CsvHandling {
         this.capacity = capacity;
     }
 
-    public boolean isAvailable() {
+    public Boolean isAvailable() {
         return isAvailable;
     }
 
@@ -53,7 +53,7 @@ public class Table implements CsvHandling {
 
     @Override
     public String toString() {
-        return "Table{" +
+        return "DiningTable{" +
                 "number=" + number +
                 ", capacity=" + capacity +
                 ", isAvailable=" + isAvailable +

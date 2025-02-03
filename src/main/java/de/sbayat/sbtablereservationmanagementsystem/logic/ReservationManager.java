@@ -1,14 +1,14 @@
 package de.sbayat.sbtablereservationmanagementsystem.logic;
 
 import de.sbayat.sbtablereservationmanagementsystem.model.Reservation;
-import de.sbayat.sbtablereservationmanagementsystem.model.Table;
+import de.sbayat.sbtablereservationmanagementsystem.model.DiningTable;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ReservationManager {
     List<Reservation> reservations;
-    List<Table>       tables;
+    List<DiningTable> tables;
 
     public ReservationManager() {
         this.reservations = new ArrayList<>();
@@ -23,11 +23,11 @@ public class ReservationManager {
         this.reservations = reservations;
     }
 
-    public List<Table> getTables() {
+    public List<DiningTable> getTables() {
         return tables;
     }
 
-    public void setTables(List<Table> tables) {
+    public void setTables(List<DiningTable> tables) {
         this.tables = tables;
     }
 
@@ -108,9 +108,9 @@ public class ReservationManager {
         return true;
     }
 
-    private List<Integer> getAvailableTables(String date, String time, List<Table> tables) {
+    private List<Integer> getAvailableTables(String date, String time, List<DiningTable> tables) {
         List<Integer> availableTables = new ArrayList<>();
-        for (Table table : tables) {
+        for (DiningTable table : tables) {
             if (isTableAvailable(table.getNumber(), date, time)) {
                 availableTables.add(table.getNumber());
             }
@@ -118,8 +118,8 @@ public class ReservationManager {
         return availableTables;
     }
 
-    private Table getTableByNumber(int tableNumber, List<Table> tables) {
-        for (Table table : tables) {
+    private DiningTable getTableByNumber(int tableNumber, List<DiningTable> tables) {
+        for (DiningTable table : tables) {
             if (table.getNumber() == tableNumber) {
                 return table;
             }
@@ -127,12 +127,12 @@ public class ReservationManager {
         return null;
     }
 
-    private int getTableCapacity(int tableNumber, List<Table> tables) {
-        Table table = getTableByNumber(tableNumber, tables);
+    private int getTableCapacity(int tableNumber, List<DiningTable> tables) {
+        DiningTable table = getTableByNumber(tableNumber, tables);
         return table != null ? table.getCapacity() : 0;
     }
 
-    public List<Table> getAllTables(List<Table> tables) {
+    public List<DiningTable> getAllTables(List<DiningTable> tables) {
         return tables;
     }
 
