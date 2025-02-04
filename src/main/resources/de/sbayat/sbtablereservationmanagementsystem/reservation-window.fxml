@@ -74,6 +74,14 @@
                   <Insets left="30.0" right="30.0" top="10.0" />
                </VBox.margin>
             </TextField>
+            <Button fx:id="findTable" mnemonicParsing="false" onAction="#openTablesLayoutWindow" text="Find a Table">
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
             <Label alignment="TOP_CENTER" text="Phone Number:">
                <VBox.margin>
                   <Insets top="20.0" />
@@ -87,20 +95,12 @@
                   <Insets left="30.0" right="30.0" top="10.0" />
                </VBox.margin>
             </TextField>
-            <Button fx:id="checkAvailability" mnemonicParsing="false" text="Check Availability" onAction="#handleCheckAvailabilityButton">
+            <Button fx:id="saveReservationButton" mnemonicParsing="false" onAction="#handleSaveButton" prefWidth="150.0" text=" Save Reservation">
+               <font>
+                  <Font size="14.0" />
+               </font>
                <VBox.margin>
                   <Insets top="50.0" />
-               </VBox.margin>
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Button>
-            <Button fx:id="saveReservationButton" mnemonicParsing="false" text="Save" onAction="#handleSaveButton">
-               <font>
-                  <Font size="14.0" />
-               </font>
-               <VBox.margin>
-                  <Insets top="10.0" />
                </VBox.margin>
             </Button>
          </children>

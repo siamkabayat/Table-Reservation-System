@@ -4,13 +4,17 @@ import de.sbayat.sbtablereservationmanagementsystem.gui.utility.AlertUtility;
 import de.sbayat.sbtablereservationmanagementsystem.logic.db.DbManager;
 import de.sbayat.sbtablereservationmanagementsystem.model.Reservation;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -70,7 +74,7 @@ public class ReservationController implements Initializable {
             tableNumber.setText(currentSelectedReservation.getTableNumber().toString());
         }
         updateTimeSlot();
-        saveReservationButton.setDisable(true);
+        saveReservationButton.setDisable(false);
     }
 
     public interface AddReservationCallback {
@@ -93,23 +97,32 @@ public class ReservationController implements Initializable {
         Reservation reservationFromUi = null;
 
         //String id   = reservationId.getText();
-        String name = customerName.getText();
+        String nameText        = customerName.getText();
+        String partySizeText   = partySize.getText();
+        String dateText        = date.getText();
+        String timeText        = timeSlot.getValue();
+        String tableNumberText = tableNumber.getText();
+        String phoneNumberText = phoneNumber.getText();
 
         String[] inputData = {
-                //      id,
-                name,
+                nameText,
+                partySizeText,
+                tableNumberText,
+                dateText,
+                timeText,
+                tableNumberText
         };
 
         if (this.isInputDataFilled(inputData)) {
 
             // int    defaultId      = Integer.parseInt(reservationId.getText());
-            String phone          = phoneNumber.getText();
+            //String phone          = phoneNumber.getText();
             int    numberOfGuests = Integer.parseInt(partySize.getText());
-            String insertedDate   = date.getText();
-            String insertedTime   = timeSlot.getValue();
+            //String insertedDate   = date.getText();
+            //String insertedTime   = timeSlot.getValue();
             int    tableDedicated = Integer.parseInt(tableNumber.getText());
 
-            reservationFromUi = new Reservation(name, phone, numberOfGuests, insertedDate, insertedTime, tableDedicated);
+            reservationFromUi = new Reservation(nameText, phoneNumberText, numberOfGuests, dateText, timeText, tableDedicated);
         }
 
         return reservationFromUi;
@@ -136,7 +149,7 @@ public class ReservationController implements Initializable {
             return;
         }
 
-        if(isReservationAvailable(reservationFromUi)) {
+        if (isReservationAvailable(reservationFromUi)) {
             AlertUtility.showMessage("Table is Available.", "You may now save the reservation.");
             saveReservationButton.setDisable(false);
         } else {
@@ -171,6 +184,7 @@ public class ReservationController implements Initializable {
             AlertUtility.showInputIsNotValidAlert();
             return;
         }
+
         if (isEditMode) {
             // Editing an existing reservation
             if (currentSelectedReservation != null) {
@@ -190,5 +204,28 @@ public class ReservationController implements Initializable {
 
         Stage stage = (Stage) saveReservationButton.getScene().getWindow();
         stage.close();
+    }
+
+    @FXML
+    private void openTablesLayoutWindow() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/de/sbayat/sbtablereservationmanagementsystem/restaurant-layout-window.fxml"));
+
+            Parent root = loader.load();
+
+            DiningTableController controller = loader.getController();
+            controller.setAddTableCallback(tableNum -> {
+                tableNumber.setText(String.valueOf(tableNum));
+                tableNumber.setDisable(true);
+            });
+
+            Stage diningTableStage = new Stage();
+            diningTableStage.initModality(Modality.APPLICATION_MODAL);
+            diningTableStage.setScene(new Scene(root, 800, 700));
+            diningTableStage.setTitle("Dining Tables Layout");
+            diningTableStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

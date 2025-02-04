@@ -9,56 +9,43 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.sbayat.sbtablereservationmanagementsystem.RestaurantLayoutWindow">
+<AnchorPane prefHeight="700.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.sbayat.sbtablereservationmanagementsystem.gui.DiningTableController">
    <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#abd6ff" height="800.0" stroke="BLACK" strokeType="INSIDE" width="125.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#c3ffde" height="100.0" layoutX="129.0" stroke="BLACK" strokeType="INSIDE" width="455.0" AnchorPane.leftAnchor="135.0" AnchorPane.rightAnchor="210.0" AnchorPane.topAnchor="5.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f2a7d2" height="800.0" stroke="BLACK" strokeType="INSIDE" width="200.0" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#eff5b9" height="686.0" stroke="#030303" strokeType="INSIDE" width="455.0" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="135.0" AnchorPane.rightAnchor="210.0" />
-      <VBox alignment="TOP_CENTER" layoutX="18.0" layoutY="13.0" prefHeight="784.0" prefWidth="100.0">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#cae5ff" height="600.0" stroke="BLACK" strokeType="INSIDE" width="125.0" AnchorPane.bottomAnchor="205.0" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="25.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d2f8e3" height="100.0" stroke="BLACK" strokeType="INSIDE" width="455.0" AnchorPane.leftAnchor="135.0" AnchorPane.rightAnchor="210.0" AnchorPane.topAnchor="25.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ebcadd" height="600.0" stroke="BLACK" strokeType="INSIDE" width="200.0" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="25.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f8fcd6" height="495.0" stroke="#030303" strokeType="INSIDE" width="455.0" AnchorPane.bottomAnchor="202.0" AnchorPane.leftAnchor="135.0" AnchorPane.rightAnchor="210.0" AnchorPane.topAnchor="130.0" />
+      <VBox alignment="TOP_CENTER" layoutX="18.0" layoutY="13.0" prefHeight="595.0" prefWidth="100.0" AnchorPane.topAnchor="30.0">
          <children>
             <Label alignment="TOP_CENTER" contentDisplay="TOP" text="By The Window">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
-            <Label text="Table 1">
+            <Label text="Seats:4">
                <VBox.margin>
                   <Insets top="50.0" />
                </VBox.margin>
             </Label>
-            <Button mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" text="Seats : 4" />
-            <Label text="Table 2">
+            <Button fx:id="tableButton1" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" text="Table 1" onAction="#handleTableClick" />
+            <Label text="Seats: 2">
                <VBox.margin>
                   <Insets top="30.0" />
                </VBox.margin>
             </Label>
-            <Button mnemonicParsing="false" prefHeight="120.0" prefWidth="80.0" text="Seats: 6" />
-            <Label text="Table 3">
+            <Button fx:id="tableButton2" mnemonicParsing="false" prefHeight="120.0" prefWidth="80.0" text="Table 2" onAction="#handleTableClick" />
+            <Label text="Seats: 2">
                <VBox.margin>
                   <Insets top="30.0" />
                </VBox.margin>
             </Label>
-            <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="60.0" text="Seats: 2" />
-            <Label text="Table 4">
+            <Button fx:id="tableButton3" mnemonicParsing="false" prefHeight="50.0" prefWidth="65.0" text="Table 3" onAction="#handleTableClick" />
+            <Label text="Seats: 2">
                <padding>
                   <Insets top="30.0" />
                </padding>
             </Label>
-            <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="60.0" text="Seats: 2" />
-            <Label text="Table 5">
-               <VBox.margin>
-                  <Insets top="30.0" />
-               </VBox.margin>
-            </Label>
-            <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="60.0" text="Seats: 2" />
-            <Label text="Table 6">
-               <VBox.margin>
-                  <Insets top="30.0" />
-               </VBox.margin>
-            </Label>
-            <Button mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" text="Seats: 4" />
+            <Button fx:id="tableButton4" mnemonicParsing="false" prefHeight="50.0" prefWidth="65.0" text="Table 4" onAction="#handleTableClick" />
          </children>
       </VBox>
       <VBox alignment="TOP_CENTER" layoutX="133.0" layoutY="5.0" prefHeight="100.0" prefWidth="455.0">
@@ -68,15 +55,15 @@
                   <Font name="System Bold" size="12.0" />
                </font>
                <VBox.margin>
-                  <Insets top="5.0" />
+                  <Insets top="25.0" />
                </VBox.margin>
             </Label>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
                   <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
                      <children>
-                        <Label text="Table 7" />
-                        <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="60.0" text="Seats: 1" />
+                        <Label text="Seats: 1" />
+                        <Button fx:id="tableButton5" mnemonicParsing="false" prefHeight="35.0" prefWidth="60.0" text="Table 5" onAction="#handleTableClick" />
                      </children>
                      <HBox.margin>
                         <Insets left="30.0" />
@@ -84,20 +71,20 @@
                   </VBox>
                   <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
                      <children>
-                        <Label text="Table 8" />
-                        <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="60.0" text="Seats: 1" />
+                        <Label text="Seats: 1" />
+                        <Button fx:id="tableButton6" mnemonicParsing="false" prefHeight="35.0" prefWidth="60.0" text="Table 6" onAction="#handleTableClick" />
                      </children>
                   </VBox>
                   <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
                      <children>
-                        <Label text="Table 9" />
-                        <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="60.0" text="Seat: 1" />
+                        <Label text="Seats: 1" />
+                        <Button fx:id="tableButton7" mnemonicParsing="false" prefHeight="35.0" prefWidth="60.0" text="Table 7" onAction="#handleTableClick" />
                      </children>
                   </VBox>
                   <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
                      <children>
-                        <Label text="Table 10" />
-                        <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="60.0" text="Seat: 1">
+                        <Label text="Seats: 1" />
+                        <Button fx:id="tableButton8" mnemonicParsing="false" prefHeight="35.0" prefWidth="60.0" text="Table 8" onAction="#handleTableClick">
                            <VBox.margin>
                               <Insets />
                            </VBox.margin>
@@ -113,46 +100,48 @@
                </VBox.margin>
             </HBox>
          </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
       </VBox>
-      <Label layoutX="331.0" layoutY="127.0" text="Main Area">
+      <Label layoutX="329.0" layoutY="136.0" text="Main Area">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <Label layoutX="647.0" layoutY="14.0" text="On The Balcony">
+      <Label layoutX="647.0" layoutY="30.0" text="On The Balcony">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <Button layoutX="196.0" layoutY="188.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="120.0" text="Seats: 6" />
-      <Label layoutX="234.0" layoutY="171.0" text="Table 11" />
-      <Button layoutX="395.0" layoutY="188.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="160.0" text="Seats: 8" />
-      <Label layoutX="453.0" layoutY="171.0" text="Table 12" />
-      <Button layoutX="196.0" layoutY="379.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="60.0" text="Seats: 2" />
-      <Button layoutX="301.0" layoutY="379.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="60.0" text="Seats: 2" />
-      <Button layoutX="435.0" layoutY="332.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" text="Seats: 4" />
-      <Label layoutX="204.0" layoutY="364.0" text="Table 13" />
-      <Label layoutX="309.0" layoutY="364.0" text="Table 14" />
-      <Label layoutX="453.0" layoutY="315.0" text="Table 15" />
-      <Button layoutX="196.0" layoutY="493.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="60.0" text="Seats: 2" />
-      <Button layoutX="302.0" layoutY="493.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="60.0" text="Seats: 2" />
-      <Button layoutX="416.0" layoutY="503.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="120.0" text="Seats: 6" />
-      <Label layoutX="204.0" layoutY="476.0" text="Table 16" />
-      <Label layoutX="309.0" layoutY="476.0" text="Table 17" />
-      <Label layoutX="453.0" layoutY="485.0" text="Table 18" />
-      <Button layoutX="177.0" layoutY="661.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="160.0" text="Seats: 8" />
-      <Button layoutX="448.0" layoutY="661.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" text="Seats: 4" />
-      <Label layoutX="234.0" layoutY="644.0" text="Table 19" />
-      <Label layoutX="466.0" layoutY="644.0" text="Table 20" />
-      <Button layoutX="655.0" layoutY="96.0" mnemonicParsing="false" prefHeight="120.0" prefWidth="80.0" text="Seats: 8" />
-      <Label layoutX="673.0" layoutY="79.0" text="Table 21" />
-      <Button layoutX="605.0" layoutY="290.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="60.0" text="Seats: 2" />
-      <Button layoutX="715.0" layoutY="290.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="60.0" text="Seats: 2" />
-      <Button layoutX="652.0" layoutY="429.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" text="Seats: 4" />
-      <Button layoutX="655.0" layoutY="583.0" mnemonicParsing="false" prefHeight="120.0" prefWidth="80.0" text="Seats: 6" />
-      <Label layoutX="613.0" layoutY="273.0" text="Table 22" />
-      <Label layoutX="723.0" layoutY="273.0" text="Table 23" />
-      <Label layoutX="669.0" layoutY="412.0" text="Table 24" />
-      <Label layoutX="673.0" layoutY="566.0" text="Table 25" />
+      <Button fx:id="tableButton9" layoutX="196.0" layoutY="188.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="120.0" text="Table 9" onAction="#handleTableClick" />
+      <Label layoutX="234.0" layoutY="171.0" text="Seats: 6" />
+      <Button fx:id="tableButton10" layoutX="395.0" layoutY="188.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="160.0" text="Table 10" onAction="#handleTableClick" />
+      <Label layoutX="453.0" layoutY="171.0" text="Seats: 8" />
+      <Button fx:id="tableButton11" layoutX="196.0" layoutY="379.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="65.0" text="Table 11" onAction="#handleTableClick" />
+      <Button fx:id="tableButton12" layoutX="301.0" layoutY="379.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="65.0" text="Table 12" onAction="#handleTableClick" />
+      <Button fx:id="tableButton13" layoutX="435.0" layoutY="332.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" text="Table 13" onAction="#handleTableClick" />
+      <Label layoutX="204.0" layoutY="364.0" text="Seats: 2" />
+      <Label layoutX="309.0" layoutY="364.0" text="Seats: 2" />
+      <Label layoutX="453.0" layoutY="315.0" text="Seats: 4" />
+      <Button fx:id="tableButton14" layoutX="196.0" layoutY="493.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="65.0" text="Table 14" onAction="#handleTableClick" />
+      <Button fx:id="tableButton15" layoutX="302.0" layoutY="493.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="65.0" text="Table 15" onAction="#handleTableClick" />
+      <Button fx:id="tableButton16" layoutX="416.0" layoutY="503.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="120.0" text="Table 16" onAction="#handleTableClick" />
+      <Label layoutX="204.0" layoutY="476.0" text="Seats: 2" />
+      <Label layoutX="309.0" layoutY="476.0" text="Seats: 2" />
+      <Label layoutX="453.0" layoutY="485.0" text="Seats 6" />
+      <Button fx:id="tableButton17" layoutX="655.0" layoutY="96.0" mnemonicParsing="false" prefHeight="120.0" prefWidth="80.0" text="Table 17" onAction="#handleTableClick" />
+      <Label layoutX="673.0" layoutY="79.0" text="Seats: 8" />
+      <Button fx:id="tableButton18" layoutX="605.0" layoutY="290.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="65.0" text="Table 18" onAction="#handleTableClick" />
+      <Button fx:id="tableButton19" layoutX="715.0" layoutY="290.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="65.0" text="Table 19" onAction="#handleTableClick" />
+      <Button fx:id="tableButton20" layoutX="652.0" layoutY="429.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" text="Table 20" onAction="#handleTableClick" />
+      <Label layoutX="613.0" layoutY="273.0" text="Seats: 2" />
+      <Label layoutX="723.0" layoutY="273.0" text="Seats 2" />
+      <Label layoutX="669.0" layoutY="412.0" text="Seats: 4" />
+      <Button fx:id="selectTableButton" layoutX="297.0" layoutY="634.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" text="SELECT TABLE" onAction="#handleSelectTableButton" AnchorPane.topAnchor="634.0">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
