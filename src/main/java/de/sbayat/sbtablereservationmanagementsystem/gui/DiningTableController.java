@@ -104,7 +104,7 @@ public class DiningTableController implements Initializable {
                 tableButton16, tableButton17, tableButton18, tableButton19, tableButton20);
 
         for (int i = 0; i < tableButtons.size(); i++) {
-            tableButtonMap.put(tableButtons.get(i), tablesFromDatabase.get(i)); // Map buttons to tables
+            tableButtonMap.put(tableButtons.get(i), tablesFromDatabase.get(i));
         }
     }
 
@@ -121,7 +121,6 @@ public class DiningTableController implements Initializable {
 
         if (selectedTable != null) {
             selectedTableNumber = selectedTable.getNumber();
-            System.out.println("Table Number: " + selectedTable.getNumber());
         }
 
         previousButton = clickedButton;
@@ -138,9 +137,7 @@ public class DiningTableController implements Initializable {
 
 
     private void updateTableButtonsStatus(String date, String time, int partySize) {
-//        for (Button button : tableButtonMap.keySet()) {
-//            button.setStyle("-fx-background-color: #C1FFC1;");
-//        }
+
         List<Reservation> reservationsFromDatabase = DbManager.getInstance().readReservations();
         for (Map.Entry<Button, DiningTable> entry : tableButtonMap.entrySet()) {
             Button      button = entry.getKey();

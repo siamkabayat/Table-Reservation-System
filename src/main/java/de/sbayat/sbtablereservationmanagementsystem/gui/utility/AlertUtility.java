@@ -7,16 +7,14 @@ import java.util.Optional;
 
 public class AlertUtility {
 
-    private static final String EDIT_ALERT_TITLE = "Fill All";
-    private static final String FILL_ALL = "Please fill all of the Input fields.";
     private static final String CONFIRM_ACTION_TITLE = "Confirm Action";
 
 
-    public static void showInputIsNotValidAlert() {
+    public static void showInputIsNotValidAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle(EDIT_ALERT_TITLE);
+        alert.setTitle(title);
         alert.setHeaderText(null);
-        alert.setContentText(FILL_ALL);
+        alert.setContentText(message);
         alert.show();
     }
 

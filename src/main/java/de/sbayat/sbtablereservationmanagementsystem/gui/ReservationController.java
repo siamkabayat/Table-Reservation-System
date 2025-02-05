@@ -14,6 +14,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -24,6 +25,13 @@ public class ReservationController implements Initializable {
     private static final String[] RESERVATION_TIMES       = {"12:00", "13:00", "14:00", "17:00", "18:00", "19:00", "20:00", "21:00"};
     private static final String   TIMESLOT_NULL           = "timeSlot is NULL! Check FXML binding.";
     private static final String   NO_RESERVATION_SELECTED = "Error: No reservation selected for editing.";
+    private static final String EDIT_ALERT_TITLE = "Fill All";
+    private static final String FILL_ALL = "Please fill all of the Input fields.";
+    private static final String FILL_DATE_TIME_SIZE = "Fill Party Size, Date and Time to find a table.";
+    private static final String FILL_REQUIRED_FIELDS = "Fill Required Fields";
+
+
+
 
     // @FXML
     // private TextField reservationId;
@@ -119,12 +127,7 @@ public class ReservationController implements Initializable {
         };
 
         if (this.isInputDataFilled(inputData)) {
-
-            // int    defaultId      = Integer.parseInt(reservationId.getText());
-            //String phone          = phoneNumber.getText();
             int numberOfGuests = Integer.parseInt(partySize.getText());
-            //String insertedDate   = date.getText();
-            //String insertedTime   = timeSlot.getValue();
             int tableDedicated = Integer.parseInt(tableNumber.getText());
 
             reservationFromUi = new Reservation(nameText, phoneNumberText, numberOfGuests, dateText, timeText, tableDedicated);
@@ -149,7 +152,7 @@ public class ReservationController implements Initializable {
         Reservation reservationFromUi = getReservationFromUi();
 
         if (reservationFromUi == null) {
-            AlertUtility.showInputIsNotValidAlert();
+            AlertUtility.showInputIsNotValidAlert(EDIT_ALERT_TITLE, FILL_ALL);
             // TODO: is this return value correct?
             return;
         }
@@ -186,7 +189,7 @@ public class ReservationController implements Initializable {
     private void handleSaveButton() {
         Reservation reservationFromUi = getReservationFromUi();
         if (reservationFromUi == null) {
-            AlertUtility.showInputIsNotValidAlert();
+            AlertUtility.showInputIsNotValidAlert(EDIT_ALERT_TITLE, FILL_ALL);
             return;
         }
 
@@ -228,9 +231,20 @@ public class ReservationController implements Initializable {
 
             String dateInserted      = date.getText();
             String timeInserted      = timeSlot.getValue();
-            int    partySizeInserted = Integer.parseInt(partySize.getText());
-            controller.setDateTimePartySize(dateInserted, timeInserted, partySizeInserted);
+            String    partySizeInsertedText = partySize.getText();
+            String[] inputData = {
+                    dateInserted,
+                    timeInserted,
+                    partySizeInsertedText
+            };
 
+            if (isInputDataFilled(inputData)) {
+                int    partySizeInserted = Integer.parseInt(partySize.getText());
+                controller.setDateTimePartySize(dateInserted, timeInserted, partySizeInserted);
+            } else {
+                AlertUtility.showInputIsNotValidAlert(FILL_REQUIRED_FIELDS, FILL_DATE_TIME_SIZE);
+                return;
+            }
 
             controller.setAddTableCallback(tableNum -> {
                 tableNumber.setText(String.valueOf(tableNum));
