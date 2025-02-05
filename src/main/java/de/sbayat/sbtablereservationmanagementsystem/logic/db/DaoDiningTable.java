@@ -31,6 +31,7 @@ public class DaoDiningTable implements Dao<DiningTable> {
      * mit den Werten des Datenmodells ersetzt werden
      */
     private static final String SELECT_ALL_TABLES = "SELECT * FROM restaurant_tables";
+    private static final String SELECT_TABLE_BY_NUMBER = "SELECT * FROM restaurant_tables WHERE number = ?";
     private static final String INSERT_TABLE      =
             "INSERT INTO `restaurant_tables`(`number`, `capacity`, `isAvailable`, `location`) VALUES (?,?,?,?)";
     private static final String UPDATE_TABLE      =
@@ -176,5 +177,30 @@ public class DaoDiningTable implements Dao<DiningTable> {
                 location
         );
     }
+
+    /**
+     * Retrieves a DiningTable by its table number.
+     *
+     * @param connection Database connection
+     * @param tableNumber Table number to search for
+     * @return DiningTable if found, otherwise null
+     */
+    public DiningTable getDiningTableByNumber(Connection connection, int tableNumber) {
+
+        try (PreparedStatement statement = connection.prepareStatement(SELECT_TABLE_BY_NUMBER)) {
+            final int statementParameterIndexNumber = 1;
+            statement.setInt(statementParameterIndexNumber, tableNumber);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                return getModelFromResultSet(resultSet);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
     //endregion
 }

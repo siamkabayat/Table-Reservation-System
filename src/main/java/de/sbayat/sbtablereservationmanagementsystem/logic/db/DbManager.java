@@ -200,5 +200,18 @@ public class DbManager {
         }
     }
 
+    //TODO: remove this function if it is redundant in the code
+    public DiningTable getDiningTableByNumber(int tableNumber) {
+        try {
+            if (this.isDatabaseOnline()) {
+                return this.daoDiningTable.getDiningTableByNumber(this.getDatabaseConnection(), tableNumber);
+            }
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+        return null;
+    }
+
+
     //endregion
 }

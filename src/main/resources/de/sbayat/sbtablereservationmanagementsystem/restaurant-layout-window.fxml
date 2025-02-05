@@ -27,25 +27,25 @@
                   <Insets top="50.0" />
                </VBox.margin>
             </Label>
-            <Button fx:id="tableButton1" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" text="Table 1" onAction="#handleTableClick" />
+            <Button fx:id="tableButton1" mnemonicParsing="false" onAction="#handleTableClick" prefHeight="80.0" prefWidth="80.0" text="Table 1" />
+            <Label text="Seats: 6">
+               <VBox.margin>
+                  <Insets top="30.0" />
+               </VBox.margin>
+            </Label>
+            <Button fx:id="tableButton2" mnemonicParsing="false" onAction="#handleTableClick" prefHeight="120.0" prefWidth="80.0" text="Table 2" />
             <Label text="Seats: 2">
                <VBox.margin>
                   <Insets top="30.0" />
                </VBox.margin>
             </Label>
-            <Button fx:id="tableButton2" mnemonicParsing="false" prefHeight="120.0" prefWidth="80.0" text="Table 2" onAction="#handleTableClick" />
-            <Label text="Seats: 2">
-               <VBox.margin>
-                  <Insets top="30.0" />
-               </VBox.margin>
-            </Label>
-            <Button fx:id="tableButton3" mnemonicParsing="false" prefHeight="50.0" prefWidth="65.0" text="Table 3" onAction="#handleTableClick" />
+            <Button fx:id="tableButton3" mnemonicParsing="false" onAction="#handleTableClick" prefHeight="50.0" prefWidth="65.0" text="Table 3" />
             <Label text="Seats: 2">
                <padding>
                   <Insets top="30.0" />
                </padding>
             </Label>
-            <Button fx:id="tableButton4" mnemonicParsing="false" prefHeight="50.0" prefWidth="65.0" text="Table 4" onAction="#handleTableClick" />
+            <Button fx:id="tableButton4" mnemonicParsing="false" onAction="#handleTableClick" prefHeight="50.0" prefWidth="65.0" text="Table 4" />
          </children>
       </VBox>
       <VBox alignment="TOP_CENTER" layoutX="133.0" layoutY="5.0" prefHeight="100.0" prefWidth="455.0">
@@ -63,7 +63,7 @@
                   <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
                      <children>
                         <Label text="Seats: 1" />
-                        <Button fx:id="tableButton5" mnemonicParsing="false" prefHeight="35.0" prefWidth="60.0" text="Table 5" onAction="#handleTableClick" />
+                        <Button fx:id="tableButton5" mnemonicParsing="false" onAction="#handleTableClick" prefHeight="35.0" prefWidth="60.0" text="Table 5" />
                      </children>
                      <HBox.margin>
                         <Insets left="30.0" />
@@ -72,19 +72,19 @@
                   <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
                      <children>
                         <Label text="Seats: 1" />
-                        <Button fx:id="tableButton6" mnemonicParsing="false" prefHeight="35.0" prefWidth="60.0" text="Table 6" onAction="#handleTableClick" />
+                        <Button fx:id="tableButton6" mnemonicParsing="false" onAction="#handleTableClick" prefHeight="35.0" prefWidth="60.0" text="Table 6" />
                      </children>
                   </VBox>
                   <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
                      <children>
                         <Label text="Seats: 1" />
-                        <Button fx:id="tableButton7" mnemonicParsing="false" prefHeight="35.0" prefWidth="60.0" text="Table 7" onAction="#handleTableClick" />
+                        <Button fx:id="tableButton7" mnemonicParsing="false" onAction="#handleTableClick" prefHeight="35.0" prefWidth="60.0" text="Table 7" />
                      </children>
                   </VBox>
                   <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
                      <children>
                         <Label text="Seats: 1" />
-                        <Button fx:id="tableButton8" mnemonicParsing="false" prefHeight="35.0" prefWidth="60.0" text="Table 8" onAction="#handleTableClick">
+                        <Button fx:id="tableButton8" mnemonicParsing="false" onAction="#handleTableClick" prefHeight="35.0" prefWidth="60.0" text="Table 8">
                            <VBox.margin>
                               <Insets />
                            </VBox.margin>
@@ -114,31 +114,31 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <Button fx:id="tableButton9" layoutX="196.0" layoutY="188.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="120.0" text="Table 9" onAction="#handleTableClick" />
+      <Button fx:id="tableButton9" layoutX="196.0" layoutY="188.0" mnemonicParsing="false" onAction="#handleTableClick" prefHeight="80.0" prefWidth="120.0" text="Table 9" />
       <Label layoutX="234.0" layoutY="171.0" text="Seats: 6" />
-      <Button fx:id="tableButton10" layoutX="395.0" layoutY="188.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="160.0" text="Table 10" onAction="#handleTableClick" />
+      <Button fx:id="tableButton10" layoutX="395.0" layoutY="188.0" mnemonicParsing="false" onAction="#handleTableClick" prefHeight="80.0" prefWidth="160.0" text="Table 10" />
       <Label layoutX="453.0" layoutY="171.0" text="Seats: 8" />
-      <Button fx:id="tableButton11" layoutX="196.0" layoutY="379.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="65.0" text="Table 11" onAction="#handleTableClick" />
-      <Button fx:id="tableButton12" layoutX="301.0" layoutY="379.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="65.0" text="Table 12" onAction="#handleTableClick" />
-      <Button fx:id="tableButton13" layoutX="435.0" layoutY="332.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" text="Table 13" onAction="#handleTableClick" />
+      <Button fx:id="tableButton11" layoutX="196.0" layoutY="379.0" mnemonicParsing="false" onAction="#handleTableClick" prefHeight="50.0" prefWidth="65.0" text="Table 11" />
+      <Button fx:id="tableButton12" layoutX="301.0" layoutY="379.0" mnemonicParsing="false" onAction="#handleTableClick" prefHeight="50.0" prefWidth="65.0" text="Table 12" />
+      <Button fx:id="tableButton13" layoutX="435.0" layoutY="332.0" mnemonicParsing="false" onAction="#handleTableClick" prefHeight="80.0" prefWidth="80.0" text="Table 13" />
       <Label layoutX="204.0" layoutY="364.0" text="Seats: 2" />
       <Label layoutX="309.0" layoutY="364.0" text="Seats: 2" />
       <Label layoutX="453.0" layoutY="315.0" text="Seats: 4" />
-      <Button fx:id="tableButton14" layoutX="196.0" layoutY="493.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="65.0" text="Table 14" onAction="#handleTableClick" />
-      <Button fx:id="tableButton15" layoutX="302.0" layoutY="493.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="65.0" text="Table 15" onAction="#handleTableClick" />
-      <Button fx:id="tableButton16" layoutX="416.0" layoutY="503.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="120.0" text="Table 16" onAction="#handleTableClick" />
+      <Button fx:id="tableButton14" layoutX="196.0" layoutY="493.0" mnemonicParsing="false" onAction="#handleTableClick" prefHeight="50.0" prefWidth="65.0" text="Table 14" />
+      <Button fx:id="tableButton15" layoutX="302.0" layoutY="493.0" mnemonicParsing="false" onAction="#handleTableClick" prefHeight="50.0" prefWidth="65.0" text="Table 15" />
+      <Button fx:id="tableButton16" layoutX="416.0" layoutY="503.0" mnemonicParsing="false" onAction="#handleTableClick" prefHeight="80.0" prefWidth="120.0" text="Table 16" />
       <Label layoutX="204.0" layoutY="476.0" text="Seats: 2" />
       <Label layoutX="309.0" layoutY="476.0" text="Seats: 2" />
       <Label layoutX="453.0" layoutY="485.0" text="Seats 6" />
-      <Button fx:id="tableButton17" layoutX="655.0" layoutY="96.0" mnemonicParsing="false" prefHeight="120.0" prefWidth="80.0" text="Table 17" onAction="#handleTableClick" />
-      <Label layoutX="673.0" layoutY="79.0" text="Seats: 8" />
-      <Button fx:id="tableButton18" layoutX="605.0" layoutY="290.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="65.0" text="Table 18" onAction="#handleTableClick" />
-      <Button fx:id="tableButton19" layoutX="715.0" layoutY="290.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="65.0" text="Table 19" onAction="#handleTableClick" />
-      <Button fx:id="tableButton20" layoutX="652.0" layoutY="429.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" text="Table 20" onAction="#handleTableClick" />
+      <Button fx:id="tableButton17" layoutX="655.0" layoutY="96.0" mnemonicParsing="false" onAction="#handleTableClick" prefHeight="140.0" prefWidth="80.0" text="Table 17" />
+      <Label layoutX="673.0" layoutY="79.0" text="Seats: 10" />
+      <Button fx:id="tableButton18" layoutX="605.0" layoutY="290.0" mnemonicParsing="false" onAction="#handleTableClick" prefHeight="50.0" prefWidth="65.0" text="Table 18" />
+      <Button fx:id="tableButton19" layoutX="715.0" layoutY="290.0" mnemonicParsing="false" onAction="#handleTableClick" prefHeight="50.0" prefWidth="65.0" text="Table 19" />
+      <Button fx:id="tableButton20" layoutX="652.0" layoutY="429.0" mnemonicParsing="false" onAction="#handleTableClick" prefHeight="80.0" prefWidth="80.0" text="Table 20" />
       <Label layoutX="613.0" layoutY="273.0" text="Seats: 2" />
       <Label layoutX="723.0" layoutY="273.0" text="Seats 2" />
       <Label layoutX="669.0" layoutY="412.0" text="Seats: 4" />
-      <Button fx:id="selectTableButton" layoutX="297.0" layoutY="634.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" text="SELECT TABLE" onAction="#handleSelectTableButton" AnchorPane.topAnchor="634.0">
+      <Button fx:id="selectTableButton" layoutX="297.0" layoutY="634.0" mnemonicParsing="false" onAction="#handleSelectTableButton" prefHeight="50.0" prefWidth="200.0" text="SELECT TABLE" AnchorPane.topAnchor="634.0">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>

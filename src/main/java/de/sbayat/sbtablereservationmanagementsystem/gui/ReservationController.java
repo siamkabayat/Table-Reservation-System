@@ -55,6 +55,10 @@ public class ReservationController implements Initializable {
 
     private AddReservationCallback addReservationCallback;
 
+    public void setEditMode(boolean editMode) {
+        isEditMode = editMode;
+    }
+
     private boolean     isEditMode;
     private Reservation currentSelectedReservation;
 
@@ -75,6 +79,7 @@ public class ReservationController implements Initializable {
         }
         updateTimeSlot();
         saveReservationButton.setDisable(false);
+        tableNumber.setDisable(true);
     }
 
     public interface AddReservationCallback {
@@ -110,17 +115,17 @@ public class ReservationController implements Initializable {
                 tableNumberText,
                 dateText,
                 timeText,
-                tableNumberText
+                phoneNumberText
         };
 
         if (this.isInputDataFilled(inputData)) {
 
             // int    defaultId      = Integer.parseInt(reservationId.getText());
             //String phone          = phoneNumber.getText();
-            int    numberOfGuests = Integer.parseInt(partySize.getText());
+            int numberOfGuests = Integer.parseInt(partySize.getText());
             //String insertedDate   = date.getText();
             //String insertedTime   = timeSlot.getValue();
-            int    tableDedicated = Integer.parseInt(tableNumber.getText());
+            int tableDedicated = Integer.parseInt(tableNumber.getText());
 
             reservationFromUi = new Reservation(nameText, phoneNumberText, numberOfGuests, dateText, timeText, tableDedicated);
         }
@@ -214,6 +219,19 @@ public class ReservationController implements Initializable {
             Parent root = loader.load();
 
             DiningTableController controller = loader.getController();
+
+            //TODO: make sure these fields are filled before opening the tables layout window
+            if (isEditMode) {
+                int tableNumberInserted = Integer.parseInt(tableNumber.getText());
+                controller.setSelectedTableNumber(tableNumberInserted);
+            }
+
+            String dateInserted      = date.getText();
+            String timeInserted      = timeSlot.getValue();
+            int    partySizeInserted = Integer.parseInt(partySize.getText());
+            controller.setDateTimePartySize(dateInserted, timeInserted, partySizeInserted);
+
+
             controller.setAddTableCallback(tableNum -> {
                 tableNumber.setText(String.valueOf(tableNum));
                 tableNumber.setDisable(true);
