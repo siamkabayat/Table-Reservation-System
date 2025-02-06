@@ -151,13 +151,8 @@ public class Reservation implements CsvHandling {
         setTableNumber(Integer.parseInt(allAttributes[SPLIT_INDEX_TABLE_NUMBER]));
     }
 
-    public boolean conflictsWith(Reservation other) {
-        return this.date.equals(other.date) &&
-                this.time.equals(other.time) &&
-                this.tableNumber == other.tableNumber;
-    }
-
     public String showReservationInfo() {
-        return String.format("ID: %d | Name: %s | Party Size: %d | Date: %s | Time: %s | Table Number %d | Phone Number: %s", getId(), getCustomerName(), getPartySize(), getDate(), getTime(), getTableNumber(), getCustomerPhoneNumber());
+        return String.format("Reservation Number: %d | Name: %s | Party Size: %d | Date: %s | Time: %s | Table Number %d | Phone Number: %s",
+                getId(), getCustomerName(), getPartySize(), getDate(), getTime(), getTableNumber(), getCustomerPhoneNumber());
     }
 }

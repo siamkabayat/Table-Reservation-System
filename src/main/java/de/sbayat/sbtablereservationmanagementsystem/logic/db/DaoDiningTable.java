@@ -21,7 +21,6 @@ public class DaoDiningTable implements Dao<DiningTable> {
     //region 0. Konstanten
     private static final String COLUMN_NUMBER       = "number";
     private static final String COLUMN_CAPACITY     = "capacity";
-    private static final String COLUMN_IS_AVAILABLE = "isAvailable";
     private static final String COLUMN_LOCATION     = "location";
 
     /*
@@ -33,9 +32,9 @@ public class DaoDiningTable implements Dao<DiningTable> {
     private static final String SELECT_ALL_TABLES = "SELECT * FROM restaurant_tables";
     private static final String SELECT_TABLE_BY_NUMBER = "SELECT * FROM restaurant_tables WHERE number = ?";
     private static final String INSERT_TABLE      =
-            "INSERT INTO `restaurant_tables`(`number`, `capacity`, `isAvailable`, `location`) VALUES (?,?,?,?)";
+            "INSERT INTO `restaurant_tables`(`number`, `capacity`, `location`) VALUES (?,?,?)";
     private static final String UPDATE_TABLE      =
-            "UPDATE `restaurant_tables` SET `number`=?, `capacity`=?, `isAvailable`=?,`location`=? WHERE id = ?";
+            "UPDATE `restaurant_tables` SET `number`=?, `capacity`=?,`location`=? WHERE id = ?";
     private static final String DELETE_TABLE      = "DELETE FROM `restaurant_tables` WHERE `number`=?";
 
     //endregion
@@ -61,13 +60,11 @@ public class DaoDiningTable implements Dao<DiningTable> {
             //Gibt an welches Fragezeichen im Prepared Statement, durch welchen Wert ersetzt wird
             final int statementParameterIndexNumber      = 1;
             final int statementParameterIndexCapacity    = 2;
-            final int statementParameterIndexIsAvailable = 3;
-            final int statementParameterIndexLocation    = 4;
+            final int statementParameterIndexLocation    = 3;
 
 
             statement.setInt(statementParameterIndexNumber, modelToInsert.getNumber());
             statement.setInt(statementParameterIndexCapacity, modelToInsert.getCapacity());
-            statement.setBoolean(statementParameterIndexIsAvailable, modelToInsert.isAvailable());
             statement.setString(statementParameterIndexLocation, modelToInsert.getLocation());
 
 
@@ -118,12 +115,10 @@ public class DaoDiningTable implements Dao<DiningTable> {
             //Gibt an welches Fragezeichen im Prepared Statement durch welchen Wert ersetzt wird
             final int statementParameterIndexNumber      = 1;
             final int statementParameterIndexCapacity    = 2;
-            final int statementParameterIndexIsAvailable = 3;
-            final int statementParameterLocation         = 4;
+            final int statementParameterLocation         = 3;
 
             statement.setString(statementParameterIndexNumber, modelToUpdate.getNumber().toString());
             statement.setString(statementParameterIndexCapacity, modelToUpdate.getCapacity().toString());
-            statement.setBoolean(statementParameterIndexIsAvailable, modelToUpdate.isAvailable());
             statement.setString(statementParameterLocation, modelToUpdate.getLocation());
 
             statement.executeUpdate();
@@ -167,13 +162,11 @@ public class DaoDiningTable implements Dao<DiningTable> {
     public DiningTable getModelFromResultSet(ResultSet resultSet) throws SQLException {
         int     number      = resultSet.getInt(COLUMN_NUMBER);
         int     capacity    = resultSet.getInt(COLUMN_CAPACITY);
-        boolean isAvailable = resultSet.getBoolean(COLUMN_IS_AVAILABLE);
         String  location    = resultSet.getString(COLUMN_LOCATION);
 
         return new DiningTable(
                 number,
                 capacity,
-                isAvailable,
                 location
         );
     }
