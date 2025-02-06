@@ -14,10 +14,8 @@ import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class ReservationController implements Initializable {
@@ -25,10 +23,10 @@ public class ReservationController implements Initializable {
     private static final String[] RESERVATION_TIMES       = {"12:00", "13:00", "14:00", "17:00", "18:00", "19:00", "20:00", "21:00"};
     private static final String   TIMESLOT_NULL           = "timeSlot is NULL! Check FXML binding.";
     private static final String   NO_RESERVATION_SELECTED = "Error: No reservation selected for editing.";
-    private static final String   EDIT_ALERT_TITLE        = "Fill All";
-    private static final String   FILL_ALL                = "Please fill all of the Input fields.";
-    private static final String   FILL_DATE_TIME_SIZE     = "Fill Party Size, Date and Time to find a table.";
-    private static final String   FILL_REQUIRED_FIELDS    = "Fill Required Fields";
+    private static final String   RESOURCE                = "/de/sbayat/sbtablereservationmanagementsystem/restaurant-layout-window.fxml";
+    private static final String   DATE_TEMPLATE           = "\\d{4}-\\d{2}-\\d{2}";
+    private static final String   Number_TEMPLATE         = "\\d+";
+    private static final String   LAYOUT_TITLE            = "Dining Tables Layout";
 
 
     @FXML
@@ -94,8 +92,23 @@ public class ReservationController implements Initializable {
         }
     }
 
-    private Reservation getReservationFromUi() {
-        Reservation reservationFromUi = null;
+    private boolean isInputDataFilled(String[] inputData) {
+        boolean inputDataIsFilled = true;
+        int     index             = 0;
+
+        while (inputDataIsFilled && index < inputData.length) {
+            inputDataIsFilled = !inputData[index].isBlank();
+            ++index;
+        }
+        return inputDataIsFilled;
+    }
+
+    private boolean isDateNotValid(String date) {
+        return !date.matches(DATE_TEMPLATE);
+    }
+
+    @FXML
+    private void handleSaveButton() {
 
         String nameText        = customerName.getText();
         String partySizeText   = partySize.getText();
@@ -113,34 +126,33 @@ public class ReservationController implements Initializable {
                 phoneNumberText
         };
 
-        if (this.isInputDataFilled(inputData)) {
-            int numberOfGuests = Integer.parseInt(partySize.getText());
-            int tableDedicated = Integer.parseInt(tableNumber.getText());
-
-            reservationFromUi = new Reservation(nameText, phoneNumberText, numberOfGuests, dateText, timeText, tableDedicated);
-        }
-
-        return reservationFromUi;
-    }
-
-    private boolean isInputDataFilled(String[] inputData) {
-        boolean inputDataIsFilled = true;
-        int     index             = 0;
-
-        while (inputDataIsFilled && index < inputData.length) {
-            inputDataIsFilled = !inputData[index].isBlank();
-            ++index;
-        }
-        return inputDataIsFilled;
-    }
-
-    @FXML
-    private void handleSaveButton() {
-        Reservation reservationFromUi = getReservationFromUi();
-        if (reservationFromUi == null) {
-            AlertUtility.showInputIsNotValidAlert(EDIT_ALERT_TITLE, FILL_ALL);
+        if (!this.isInputDataFilled(inputData)) {
+            AlertUtility.showInputIsNotValidAlert(AlertUtility.EDIT_ALERT_TITLE, AlertUtility.FILL_ALL);
             return;
         }
+
+        if (!partySizeText.matches(Number_TEMPLATE)) {
+            AlertUtility.showInputIsNotValidAlert(AlertUtility.INVALID_GUESTS, AlertUtility.INVALID_GUESTS_MESSAGE);
+            return;
+        }
+
+        if (isDateNotValid(dateText)) {
+            AlertUtility.showInputIsNotValidAlert(AlertUtility.INVALID_DATE, AlertUtility.INVALID_DATE_MESSAGE);
+            return;
+        }
+
+        if (!phoneNumberText.matches(Number_TEMPLATE)) {
+            AlertUtility.showInputIsNotValidAlert(AlertUtility.INVALID_PHONE, AlertUtility.INVALID_PHONE_MESSAGE);
+            return;
+        }
+
+        int numberOfGuests = Integer.parseInt(partySize.getText());
+        // table number data type does not need to be validated here
+        int tableDedicated = Integer.parseInt(tableNumber.getText());
+
+
+        Reservation reservationFromUi = new Reservation(nameText, phoneNumberText, numberOfGuests, dateText, timeText, tableDedicated);
+
 
         if (isEditMode) {
             // Editing an existing reservation
@@ -166,7 +178,7 @@ public class ReservationController implements Initializable {
     @FXML
     private void openTablesLayoutWindow() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/de/sbayat/sbtablereservationmanagementsystem/restaurant-layout-window.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(RESOURCE));
 
             Parent root = loader.load();
 
@@ -180,6 +192,12 @@ public class ReservationController implements Initializable {
             String dateInserted          = date.getText();
             String timeInserted          = timeSlot.getValue();
             String partySizeInsertedText = partySize.getText();
+
+            if (!partySizeInsertedText.matches(Number_TEMPLATE)) {
+                AlertUtility.showInputIsNotValidAlert(AlertUtility.INVALID_GUESTS, AlertUtility.INVALID_GUESTS_MESSAGE);
+                return;
+            }
+
             String[] inputData = {
                     dateInserted,
                     timeInserted,
@@ -188,9 +206,20 @@ public class ReservationController implements Initializable {
 
             if (isInputDataFilled(inputData)) {
                 int partySizeInserted = Integer.parseInt(partySize.getText());
+
+                if (partySizeInserted <= 0) {
+                    AlertUtility.showInputIsNotValidAlert(AlertUtility.INVALID_GUESTS, AlertUtility.INVALID_GUESTS_MESSAGE);
+                    return;
+                }
+
+                if (isDateNotValid(dateInserted)) {
+                    AlertUtility.showInputIsNotValidAlert(AlertUtility.INVALID_DATE, AlertUtility.INVALID_DATE_MESSAGE);
+                    return;
+                }
+
                 controller.updateLayoutData(dateInserted, timeInserted, partySizeInserted);
             } else {
-                AlertUtility.showInputIsNotValidAlert(FILL_REQUIRED_FIELDS, FILL_DATE_TIME_SIZE);
+                AlertUtility.showInputIsNotValidAlert(AlertUtility.FILL_REQUIRED_FIELDS, AlertUtility.FILL_DATE_TIME_SIZE);
                 return;
             }
 
@@ -202,7 +231,7 @@ public class ReservationController implements Initializable {
             Stage diningTableStage = new Stage();
             diningTableStage.initModality(Modality.APPLICATION_MODAL);
             diningTableStage.setScene(new Scene(root, 800, 700));
-            diningTableStage.setTitle("Dining Tables Layout");
+            diningTableStage.setTitle(LAYOUT_TITLE);
             diningTableStage.show();
         } catch (IOException e) {
             e.printStackTrace();

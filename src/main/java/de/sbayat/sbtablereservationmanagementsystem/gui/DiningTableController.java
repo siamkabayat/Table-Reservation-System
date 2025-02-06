@@ -148,7 +148,7 @@ public class DiningTableController implements Initializable {
             DiningTable table  = entry.getValue();
 
             button.setDisable(false);
-            button.setStyle("");
+            button.setStyle(COLOR_DEFAULT);
 
             // Disable tables that do not match the party size
             if (table.getCapacity() < partySize || table.getCapacity() > partySize + 2) {
