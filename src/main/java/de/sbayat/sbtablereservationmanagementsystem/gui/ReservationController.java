@@ -18,6 +18,24 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Class Description:
+ *
+ * The ReservationController class handles the functionality of the reservation form within the Table Reservation
+ * Management System. It allows the user to add or edit reservation details such as the customer name, party size, date,
+ * time, phone number, and table number. The form validates user inputs and ensures that the required fields are filled
+ * correctly. The class interacts with the DbManager for database operations (inserting or updating reservations) and
+ * utilizes AlertUtility to show validation messages. It also provides the ability to select a table from a dining table
+ * layout window and assign it to the reservation.
+ *
+ * Key Features:
+ *
+ * Displays and validates reservation details (name, party size, date, time, etc.).
+ * Handles both adding new reservations and editing existing ones.
+ * Opens a dining table layout window to assign a table to the reservation.
+ * Uses AlertUtility for showing error or validation messages.
+ * Supports callback functionality to update the reservation list after changes.
+ */
 public class ReservationController implements Initializable {
 
     private static final String[] RESERVATION_TIMES       = {"12:00", "13:00", "14:00", "17:00", "18:00", "19:00", "20:00", "21:00"};
@@ -25,7 +43,7 @@ public class ReservationController implements Initializable {
     private static final String   NO_RESERVATION_SELECTED = "Error: No reservation selected for editing.";
     private static final String   RESOURCE                = "/de/sbayat/sbtablereservationmanagementsystem/restaurant-layout-window.fxml";
     private static final String   DATE_TEMPLATE           = "\\d{4}-\\d{2}-\\d{2}";
-    private static final String   Number_TEMPLATE         = "\\d+";
+    private static final String   NUMBER_TEMPLATE         = "\\d+";
     private static final String   LAYOUT_TITLE            = "Dining Tables Layout";
 
 
@@ -131,7 +149,7 @@ public class ReservationController implements Initializable {
             return;
         }
 
-        if (!partySizeText.matches(Number_TEMPLATE)) {
+        if (!partySizeText.matches(NUMBER_TEMPLATE)) {
             AlertUtility.showInputIsNotValidAlert(AlertUtility.INVALID_GUESTS, AlertUtility.INVALID_GUESTS_MESSAGE);
             return;
         }
@@ -141,7 +159,7 @@ public class ReservationController implements Initializable {
             return;
         }
 
-        if (!phoneNumberText.matches(Number_TEMPLATE)) {
+        if (!phoneNumberText.matches(NUMBER_TEMPLATE)) {
             AlertUtility.showInputIsNotValidAlert(AlertUtility.INVALID_PHONE, AlertUtility.INVALID_PHONE_MESSAGE);
             return;
         }
@@ -193,7 +211,7 @@ public class ReservationController implements Initializable {
             String timeInserted          = timeSlot.getValue();
             String partySizeInsertedText = partySize.getText();
 
-            if (!partySizeInsertedText.matches(Number_TEMPLATE)) {
+            if (!partySizeInsertedText.matches(NUMBER_TEMPLATE)) {
                 AlertUtility.showInputIsNotValidAlert(AlertUtility.INVALID_GUESTS, AlertUtility.INVALID_GUESTS_MESSAGE);
                 return;
             }

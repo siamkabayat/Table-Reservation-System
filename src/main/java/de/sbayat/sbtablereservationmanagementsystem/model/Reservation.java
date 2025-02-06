@@ -1,5 +1,14 @@
 package de.sbayat.sbtablereservationmanagementsystem.model;
 
+
+/**
+ * The Reservation class represents a dining table reservation in a restaurant.
+ * It stores details such as the customer's name, phone number, party size,
+ * reservation date and time, and assigned table number.
+ *
+ * This class implements CsvHandling, allowing reservations to be serialized
+ * and deserialized in CSV format.
+ */
 public class Reservation implements CsvHandling {
 
     private static final String NO_VALUE_YET  = ">noValueYet";

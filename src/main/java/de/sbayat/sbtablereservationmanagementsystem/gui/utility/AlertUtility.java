@@ -5,6 +5,13 @@ import javafx.scene.control.ButtonType;
 
 import java.util.Optional;
 
+/**
+ * The AlertUtility class provides utility methods to display various types of alerts
+ * in a JavaFX application. It includes predefined alert messages for common validation
+ * errors (e.g., invalid input, missing required fields) and actions (e.g., confirming an action).
+ * The methods allow the display of warning, confirmation, and informational alerts, with customizable
+ * titles and messages. This class helps centralize and streamline alert management in the application.
+ */
 public class AlertUtility {
 
     public static final String CONFIRM_ACTION_TITLE   = "Confirm Action";

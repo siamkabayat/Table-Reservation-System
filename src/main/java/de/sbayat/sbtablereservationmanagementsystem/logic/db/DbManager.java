@@ -13,13 +13,13 @@ import java.util.List;
 /**
  * TODO 0.1 org.mariadb.jdbc:mariadb-java-client:3.5.1 als maven- dependency hinzufuegen File->Project Structure->Modules->Dependencies->+->Library->From Maven
  * TODO Kopieren und Einfuegen
- * Dieser Singleton verwaltet threadsicher
+ *
+ *  Singleton class that manages database connections and CRUD operations for reservations and dining tables.
  */
+
 public class DbManager {
 
-    //region 0. Konstanten
 
-    //	private static final String DB_LOCAL_SERVER_IP_ADDRESS = "127.0.0.1:100/";
     private static final String DB_LOCAL_SERVER_IP_ADDRESS = "localhost/";
     private static final String DB_LOCAL_NAME              = "reservation_management";
 
@@ -28,32 +28,25 @@ public class DbManager {
 
     private static final String DB_LOCAL_USER_NAME = "root";
     private static final String DB_LOCAL_USER_PW   = "";
-    //endregion
 
-    //region 1. Decl and Init Attribute
     private static DbManager      instance;
     private        DaoReservation daoReservation;
     private        DaoDiningTable daoDiningTable;
-    //endregion
 
-    //region 2. Konstruktoren
 
     /**
-     * Standarkontruktor
+     * Default constructor
      */
     private DbManager() {
         daoReservation = new DaoReservation();
         daoDiningTable = new DaoDiningTable();
     }
-    //endregion
-
-    //region 3. Get Instance
 
     /**
-     * Gibt die einzige Instanz dieser Klasse
-     * synchronisiert und so mit Threadsicher zurueck
+     * Returns the only instance of this class
+     * synchronized to ensure thread-safety
      *
-     * @return instance : {@link DbManager} : Einzige threadsichere Instanz
+     * @return instance : {@link DbManager} : The only thread-safe instance
      */
     public static synchronized DbManager getInstance() {
 
@@ -64,15 +57,12 @@ public class DbManager {
         return instance;
 
     }
-    //endregion
-
-    //region 4. Get Read And Wirte Connection to Database
 
     /**
-     * Gibt eine generierte Datenbankverbindung mit Lese(r) als auch Schreibrechten(w)
-     * zurueckt oder null sollte etwas schiefgelaufen sein.
+     * Returns a generated database connection with read (r) and write (w) rights,
+     * or null if something goes wrong.
      *
-     * @return rwDbConnection : {@link Connection} : Verbindung zur Datenbank mit rw - Rechten
+     * @return rwDbConnection : {@link Connection} : Connection to the database with read/write rights
      */
     private Connection getDatabaseConnection() throws Exception {
         Connection connection = null;
@@ -88,15 +78,14 @@ public class DbManager {
     }
 
     /**
-     * Checkt ob die Datenbank online ist oder nicht,
-     * indem die Verbindung ueber {@link DbManager#getDatabaseConnection()} geoffenet und direkt
-     * wieder mit {@link DbManager#getDatabaseConnection()}.close() geschlossen wird.
-     * Gibt es eine Fehlermeldung wird false zurueckgegeben
-     * und die Datenbank ist nicht online dann ist das die {@link SQLNonTransientConnectionException}
-     * hier ist dann die maven-dependency org.mariadb.jdbc:mariadb-java-client:3.5.1 nicht zum
-     * Projekt hinzugefuegt worden.
+     * Checks if the database is online or not,
+     * by opening a connection through {@link DbManager#getDatabaseConnection()} and immediately
+     * closing it with {@link DbManager#getDatabaseConnection()}.close().
+     * If an error occurs, false is returned,
+     * meaning the database is not online. This can happen if the Maven dependency
+     * org.mariadb.jdbc:mariadb-java-client:3.5.1 was not added to the project.
      *
-     * @return isOnline : boolean : true : Dbist Online : false nicht
+     * @return isOnline : boolean : true if the database is online, false if not
      */
     public boolean isDatabaseOnline() {
         boolean isOnline = true;
@@ -108,9 +97,7 @@ public class DbManager {
         }
         return isOnline;
     }
-    //endregion
 
-    //region 5.CRUD Operationen fuer Reservation
     public void insertReservation(Reservation reservationToInsert) {
         try {
             if (this.isDatabaseOnline()) {
@@ -189,5 +176,4 @@ public class DbManager {
             System.err.println(e.getMessage());
         }
     }
-    //endregion
 }

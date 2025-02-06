@@ -7,48 +7,54 @@ import java.sql.SQLException;
 import java.util.List;
 
 /**
- * TODO Kopieren
- * DAO - Data Access Object - Interface, welches die CRUD-Funktionalität
- * zur Verfügung
+ * The Dao<T> interface defines the standard CRUD operations
+ * (Create, Read, Update, Delete) for database access.
+ *
+ * It provides a generic structure for interacting with database
+ * tables by handling objects of type T.
+ * @param <T> The type of the model object handled by the DAO
  */
 public interface Dao<T> {
 
     /**
-     * Methode zum Einfügen eines Objektes in die Datenbank
+     * Inserts an object into the database.
      *
-     * @param connection Datenbankverbindung
-     * @param modelToInsert Objekt einer bestimmten Modellklasse
+     * @param connection Database connection
+     * @param modelToInsert The object to be inserted
      */
     void create(Connection connection, T modelToInsert);
 
     /**
-     * Methode zum Auslesen von Objekten aus der Datenbank
-     * @param connection Datenbankverbindung
-     * @return Liste von Objekten
+     * Reads all objects of type T from the database.
+     *
+     * @param connection Database connection
+     * @return A list of retrieved objects
      */
     List<T> readAll(Connection connection);
 
     /**
-     * Methode zum Aktualisieren eines Objektes in der Datenbank
+     * Updates an existing object in the database.
      *
-     * @param connection Datenbankverbindung
-     * @param modelToUpdate Objekt einer bestimmten Modellklasse
+     * @param connection Database connection
+     * @param modelToUpdate The object with updated values
      */
     void update(Connection connection, T modelToUpdate);
 
     /**
-     * Methode zum Löschen eines Objektes aus der Datenbank
+     * Deletes an object from the database.
      *
-     * @param connection Datenbankverbindung
-     * @param modelToDelete Objekt einer bestimmten Modellklasse
+     * @param connection Database connection
+     * @param modelToDelete The object to be deleted
      */
     void delete(Connection connection, T modelToDelete);
 
 
     /**
-     * Nimmt die Ergebnismenge und formt ein konkretes Datennmodel daraus
-     * @param resultSet : {@link ResultSet} : Ergebnismenge der aktuellen Abfrage
-     * @return : {@link T} : Datenmodell aus ResultSet
+     * Converts a {@link ResultSet} into a model object of type T.
+     *
+     * @param resultSet The result set containing database query results
+     * @return The corresponding model object
+     * @throws SQLException If an SQL error occurs while processing the ResultSet
      */
     T getModelFromResultSet(ResultSet resultSet) throws SQLException;
 }

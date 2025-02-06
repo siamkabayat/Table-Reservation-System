@@ -12,6 +12,23 @@ import javafx.stage.Stage;
 import java.net.URL;
 import java.util.*;
 
+/**
+ * Class Description:
+ *
+ * The DiningTableController class manages the display and interaction with dining tables in the Table Reservation
+ * Management System. It is responsible for showing the table layout, enabling or disabling tables based on party size
+ * and reservation status, and allowing the user to select a table for a reservation. The class maps buttons to tables,
+ * and handles the logic for selecting a table, including validating table capacity and availability.
+ *
+ * Key Features:
+ *
+ * Displays buttons representing dining tables.
+ * Maps buttons to tables from the database using DbManager.
+ * Disables tables based on reservation status, party size, or table capacity.
+ * Allows the user to select a table and assign it to a reservation.
+ * Updates button colors based on table availability (light green for selected, gray for disabled, red for reserved).
+ * Supports callback functionality to pass the selected table number back to the calling class.
+ */
 public class DiningTableController implements Initializable {
 
     private static final String COLOR_DEFAULT         = "";
@@ -63,12 +80,14 @@ public class DiningTableController implements Initializable {
     Button tableButton20;
 
     @FXML
-    public Button selectTableButton;
+    public Button selectTableButton; //A map that links buttons to their respective dining tables.
 
+    //Keeps track of the previously selected button to reset its color when a new button is selected.
     private Button previousButton = null;
 
     private Map<Button, DiningTable> tableButtonMap = new HashMap<>();
 
+    //A callback function that gets invoked when a table is selected.
     private AddTableCallback addTableCallback;
 
     private int selectedTableNumber = NO_VALID_TABLE_NUMBER;
@@ -84,10 +103,10 @@ public class DiningTableController implements Initializable {
         mapButtonsToTables();
     }
 
+    //Disables the "select" button if no valid table is selected.
     private void disableSelectButtonIfNoTableSelected() {
         selectTableButton.setDisable(selectedTableNumber == NO_VALID_TABLE_NUMBER);
     }
-
 
     public void setSelectedTableNumber(int selectedTableNumber) {
         this.selectedTableNumber = selectedTableNumber;
@@ -97,6 +116,7 @@ public class DiningTableController implements Initializable {
         void onAddTable(int tableNumber);
     }
 
+    //Sets the callback function that will be triggered when a table is selected.
     public void setAddTableCallback(AddTableCallback callback) {
         this.addTableCallback = callback;
     }
@@ -113,6 +133,7 @@ public class DiningTableController implements Initializable {
         }
     }
 
+    //Updates the layout data with the selected date, time, and party size and then updates the table button statuses accordingly.
     public void updateLayoutData(String dateFromUi, String timeFromUi, int partySizeFromUi) {
         this.dateFromUi      = dateFromUi;
         this.timeFromUi      = timeFromUi;
@@ -148,7 +169,10 @@ public class DiningTableController implements Initializable {
         stage.close();
     }
 
-
+    /**
+     * Updates the button status based on the reservation data (disables buttons based on party size, table availability,
+     * and reservation status).
+     * */
     private void updateTableButtonsStatus(String date, String time, int partySize) {
 
         List<Reservation> reservationsFromDatabase = DbManager.getInstance().readReservations();
@@ -159,13 +183,13 @@ public class DiningTableController implements Initializable {
             button.setDisable(false);
             button.setStyle(COLOR_DEFAULT);
 
-            // Disable tables that do not match the party size
+            // Disable tables that do not match the party size and give them gray color
             if (table.getCapacity() < partySize || table.getCapacity() > partySize + 2) {
                 button.setDisable(true);
                 button.setStyle(COLOR_GRAY);
             }
         }
-
+        // iterate through reservations and disable tables that are reserved for the sate date and time and give them red color
         for (Reservation reservation : reservationsFromDatabase) {
             String dateFromDatabase = reservation.getDate();
             String timeFromDatabase = reservation.getTime();
@@ -189,12 +213,11 @@ public class DiningTableController implements Initializable {
         for (Map.Entry<Button, DiningTable> entry : tableButtonMap.entrySet()) {
             DiningTable table = entry.getValue();
 
-            // Compare table number
             if (table.getNumber() == tableNumber) {
-                return entry.getKey();  // Return the Button associated with the table number
+                return entry.getKey();
             }
         }
-        return null;  // Return null if no Button matches the table number
+        return null;
     }
 
 }

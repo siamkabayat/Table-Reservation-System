@@ -8,7 +8,8 @@ import de.sbayat.sbtablereservationmanagementsystem.model.Reservation;
 import java.util.List;
 
 /**
- * Testet Dinge
+ * The TestStuff class is a simple testing utility designed to interact with the database and print the status of
+ * reservations and dining tables
  */
 public class TestStuff {
 
@@ -17,14 +18,6 @@ public class TestStuff {
         showDatabaseOnlineStatus();
         showReservationsFromDatabase();
         showDiningTablesFromDatabase();
-
-        //showInsertReservationInDatabase();
-//        showLogWoodsFromDatabase();
-
-        //       showUpdateReservationInDatabase();
-        //      showReservationsFromDatabase();
-
-        //	showDeleteLogWoodInDatabase();
 
 
     }

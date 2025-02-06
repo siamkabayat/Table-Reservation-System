@@ -11,9 +11,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Data Access Object kurz Dao um auf die Datenbanktabelle reservations zuzugreifen.
- * Die CRUD Methoden sind mit dem Interface {@link Dao} zu implementieren.
- * TODO Implementieren
+ * The DaoDiningTable class implements the {@link Dao} interface to provide CRUD operations
+ * for interacting with the "restaurant_tables" database table. It offers methods to insert,
+ * update, delete, and retrieve dining table records.
+ *
+ * This class maps the results of SQL queries to DiningTable model objects and executes
+ * database operations using {@link PreparedStatement}.
  */
 public class DaoDiningTable implements Dao<DiningTable> {
 
@@ -23,12 +26,7 @@ public class DaoDiningTable implements Dao<DiningTable> {
     private static final String COLUMN_CAPACITY     = "capacity";
     private static final String COLUMN_LOCATION     = "location";
 
-    /*
-     * SQL-Statements
-     * Fragezeichen sind Platzhalter die nachher mit
-     * dem PreparedStatement durch statementParameterInidzes gezielt
-     * mit den Werten des Datenmodells ersetzt werden
-     */
+
     private static final String SELECT_ALL_TABLES = "SELECT * FROM restaurant_tables";
     private static final String SELECT_TABLE_BY_NUMBER = "SELECT * FROM restaurant_tables WHERE number = ?";
     private static final String INSERT_TABLE      =
@@ -37,21 +35,13 @@ public class DaoDiningTable implements Dao<DiningTable> {
             "UPDATE `restaurant_tables` SET `number`=?, `capacity`=?,`location`=? WHERE id = ?";
     private static final String DELETE_TABLE      = "DELETE FROM `restaurant_tables` WHERE `number`=?";
 
-    //endregion
 
-    //region 1. Decl and Init Attribute
-    //endregion
-
-    //region 2. Konstruktoren
-    //endregion
-
-    //region 3. CRUD
 
     /**
-     * Methode zum Einfügen eines Objektes in die Datenbank
+     * Inserts a DiningTable object into the database.
      *
-     * @param connection    Datenbankverbindung
-     * @param modelToInsert Objekt einer bestimmten Modellklasse
+     * @param connection Database connection
+     * @param modelToInsert The DiningTable object to insert
      */
     @Override
     public void create(Connection connection, DiningTable modelToInsert) {
@@ -77,10 +67,10 @@ public class DaoDiningTable implements Dao<DiningTable> {
     }
 
     /**
-     * Methode zum Auslesen von Objekten aus der Datenbank
+     * Retrieves all DiningTable objects from the database.
      *
-     * @param connection Datenbankverbindung
-     * @return Liste von Objekten
+     * @param connection Database connection
+     * @return A list of DiningTable objects
      */
     @Override
     public List<DiningTable> readAll(Connection connection) {
@@ -103,10 +93,10 @@ public class DaoDiningTable implements Dao<DiningTable> {
     }
 
     /**
-     * Methode zum Aktualisieren eines Objektes in der Datenbank
+     * Updates an existing DiningTable object in the database.
      *
-     * @param connection    Datenbankverbindung
-     * @param modelToUpdate Objekt einer bestimmten Modellklasse
+     * @param connection Database connection
+     * @param modelToUpdate The DiningTable object to update
      */
     @Override
     public void update(Connection connection, DiningTable modelToUpdate) {
@@ -129,10 +119,10 @@ public class DaoDiningTable implements Dao<DiningTable> {
     }
 
     /**
-     * Methode zum Löschen eines Objektes aus der Datenbank
+     * Deletes a DiningTable object from the database.
      *
-     * @param connection    Datenbankverbindung
-     * @param modelToDelete Objekt einer bestimmten Modellklasse
+     * @param connection Database connection
+     * @param modelToDelete The DiningTable object to delete
      */
     @Override
     public void delete(Connection connection, DiningTable modelToDelete) {
@@ -148,15 +138,13 @@ public class DaoDiningTable implements Dao<DiningTable> {
             e.printStackTrace();
         }
     }
-    //endregion
-
-    //region Hilfsmethoden und Funktionen
 
     /**
-     * Nimmt die Ergebnismenge und formt ein konkretes Datennmodel daraus
+     * Converts a ResultSet into a DiningTable model object.
      *
-     * @param resultSet : {@link ResultSet} : Ergebnismenge der aktuellen Abfrage
-     * @return : {@link DiningTable} : Datenmodell aus ResultSet
+     * @param resultSet The ResultSet containing the query results
+     * @return The DiningTable object mapped from the ResultSet
+     * @throws SQLException If a database access error occurs
      */
     @Override
     public DiningTable getModelFromResultSet(ResultSet resultSet) throws SQLException {
@@ -169,30 +157,6 @@ public class DaoDiningTable implements Dao<DiningTable> {
                 capacity,
                 location
         );
-    }
-
-    /**
-     * Retrieves a DiningTable by its table number.
-     *
-     * @param connection Database connection
-     * @param tableNumber Table number to search for
-     * @return DiningTable if found, otherwise null
-     */
-    public DiningTable getDiningTableByNumber(Connection connection, int tableNumber) {
-
-        try (PreparedStatement statement = connection.prepareStatement(SELECT_TABLE_BY_NUMBER)) {
-            final int statementParameterIndexNumber = 1;
-            statement.setInt(statementParameterIndexNumber, tableNumber);
-            ResultSet resultSet = statement.executeQuery();
-
-            if (resultSet.next()) {
-                return getModelFromResultSet(resultSet);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return null;
     }
 
     //endregion

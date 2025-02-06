@@ -1,11 +1,9 @@
 package de.sbayat.sbtablereservationmanagementsystem.model;
 
 /**
- * Stellt das Regelewerk fuer
- * die CSV-Daten verarbeitung dar.
- * Jede Klasse die CSV-Daten generieren
- * oder extrahieren moechte muss dieses
- * Interface implementieren.
+ * This interface defines the rules for CSV data processing.
+ * Any class that wants to generate or extract CSV data
+ * must implement this interface.
  */
 public interface CsvHandling {
 

@@ -17,6 +17,22 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Class Description:
+ *
+ * The PrimaryWindowController class manages the primary window of the Table Reservation Management System. It handles
+ * the main functionalities such as adding, editing, and deleting reservations. The class interacts with the database to
+ * load, update, and remove reservations using the DbManager class. It provides an intuitive user interface through the
+ * ListView of reservations and utilizes alert dialogs for confirmation and warnings (using AlertUtility). The class
+ * also opens the reservation form in either "add" or "edit" mode depending on the user's action.
+ *
+ * Key Features:
+ *
+ * Loads and displays reservations in a ListView.
+ * Opens a new reservation form to add or edit reservations.
+ * Confirms deletion of a selected reservation.
+ * Refreshes the reservation list after any changes.
+ */
 public class PrimaryWindowController implements Initializable {
 
     private static final String CONFIRM_DELETE        = "Are you sure you want to delete the Reservation with ID number %d?";

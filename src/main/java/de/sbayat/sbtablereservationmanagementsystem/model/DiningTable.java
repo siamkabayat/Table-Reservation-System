@@ -1,5 +1,14 @@
 package de.sbayat.sbtablereservationmanagementsystem.model;
 
+
+/**
+ * The DiningTable class represents a table in a restaurant.
+ * It stores details such as the table number, seating capacity,
+ * and location within the restaurant.
+ *
+ * This class implements CsvHandling, enabling serialization and
+ * deserialization of dining table data in CSV format.
+ */
 public class DiningTable implements CsvHandling {
 
     private static final int SPLIT_INDEX_NUMBER       = 0;

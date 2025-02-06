@@ -10,15 +10,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Data Access Object kurz Dao um auf die Datenbanktabelle reservations zuzugreifen.
- * Die CRUD Methoden sind mit dem Interface {@link Dao} zu implementieren.
- * TODO Implementieren
- */
+
 public class DaoReservation implements Dao<Reservation> {
 
 
-    //region 0. Konstanten
     private static final String COLUMN_ID                    = "id";
     private static final String COLUMN_CUSTOMER_NAME         = "customerName";
     private static final String COLUMN_CUSTOMER_PHONE_NUMBER = "customerPhoneNumber";
@@ -27,12 +22,7 @@ public class DaoReservation implements Dao<Reservation> {
     private static final String COLUMN_TIME                  = "time";
     private static final String COLUMN_TABLE_NUMBER          = "tableNumber";
 
-    /*
-     * SQL-Statements
-     * Fragezeichen sind Platzhalter die nachher mit
-     * dem PreparedStatement durch statementParameterInidzes gezielt
-     * mit den Werten des Datenmodells ersetzt werden
-     */
+
     private static final String SELECT_ALL_RESERVATIONS = "SELECT * FROM reservations";
     private static final String INSERT_RESERVATION      =
             "INSERT INTO `reservations`(`customerName`, `customerPhoneNumber`, `partySize`, `date`, `time`, `tableNumber`) VALUES (?,?,?,?,?,?)";
@@ -40,27 +30,11 @@ public class DaoReservation implements Dao<Reservation> {
             "UPDATE `reservations` SET `customerName`=?, `customerPhoneNumber`=?, `partySize`=?,`date`=?,`time`=?, `tableNumber`=? WHERE id = ?";
     private static final String DELETE_RESERVATION      = "DELETE FROM `reservations` WHERE `id`=?";
 
-    //endregion
 
-    //region 1. Decl and Init Attribute
-    //endregion
-
-    //region 2. Konstruktoren
-    //endregion
-
-    //region 3. CRUD
-
-    /**
-     * Methode zum Einfügen eines Objektes in die Datenbank
-     *
-     * @param connection    Datenbankverbindung
-     * @param modelToInsert Objekt einer bestimmten Modellklasse
-     */
     @Override
     public void create(Connection connection, Reservation modelToInsert) {
         try (PreparedStatement statement = connection.prepareStatement(INSERT_RESERVATION)) {
 
-            //Gibt an welches Fragezeichen im Prepared Statement, durch welchen Wert ersetzt wird
             final int statementParameterIndexCustomerName        = 1;
             final int statementParameterIndexCustomerPhoneNumber = 2;
             final int statementParameterIndexPartySize           = 3;
@@ -78,23 +52,13 @@ public class DaoReservation implements Dao<Reservation> {
 
             statement.executeUpdate();
 
-//			ResultSet statementGeneratedKeys = statement.getGeneratedKeys();
-//			if(statementGeneratedKeys.next()){
-//				modelToInsert.setId(statementGeneratedKeys.getInt(COLUMN_ID));
-//			}
-
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    /**
-     * Methode zum Auslesen von Objekten aus der Datenbank
-     *
-     * @param connection Datenbankverbindung
-     * @return Liste von Objekten
-     */
+
     @Override
     public List<Reservation> readAll(Connection connection) {
         List<Reservation> reservations = new ArrayList<>();
@@ -115,17 +79,10 @@ public class DaoReservation implements Dao<Reservation> {
         return reservations;
     }
 
-    /**
-     * Methode zum Aktualisieren eines Objektes in der Datenbank
-     *
-     * @param connection    Datenbankverbindung
-     * @param modelToUpdate Objekt einer bestimmten Modellklasse
-     */
     @Override
     public void update(Connection connection, Reservation modelToUpdate) {
         try (PreparedStatement statement = connection.prepareStatement(UPDATE_RESERVATION)) {
 
-            //Gibt an welches Fragezeichen im Prepared Statement durch welchen Wert ersetzt wird
             final int statementParameterIndexCustomerName        = 1;
             final int statementParameterIndexCustomerPhoneNumber = 2;
             final int statementParameterIndexPartySize           = 3;
@@ -150,12 +107,6 @@ public class DaoReservation implements Dao<Reservation> {
         }
     }
 
-    /**
-     * Methode zum Löschen eines Objektes aus der Datenbank
-     *
-     * @param connection    Datenbankverbindung
-     * @param modelToDelete Objekt einer bestimmten Modellklasse
-     */
     @Override
     public void delete(Connection connection, Reservation modelToDelete) {
         try (PreparedStatement statement = connection.prepareStatement(DELETE_RESERVATION)) {
@@ -170,16 +121,7 @@ public class DaoReservation implements Dao<Reservation> {
             e.printStackTrace();
         }
     }
-    //endregion
 
-    //region Hilfsmethoden und Funktionen
-
-    /**
-     * Nimmt die Ergebnismenge und formt ein konkretes Datennmodel daraus
-     *
-     * @param resultSet : {@link ResultSet} : Ergebnismenge der aktuellen Abfrage
-     * @return : {@link Reservation} : Datenmodell aus ResultSet
-     */
     @Override
     public Reservation getModelFromResultSet(ResultSet resultSet) throws SQLException {
         int    id                  = resultSet.getInt(COLUMN_ID);
@@ -202,6 +144,4 @@ public class DaoReservation implements Dao<Reservation> {
 
     }
 
-
-    //endregion
 }

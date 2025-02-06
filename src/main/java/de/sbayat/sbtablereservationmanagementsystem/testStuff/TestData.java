@@ -7,19 +7,12 @@ import java.util.List;
 
 public class TestData {
 
-    //region 0. Konstanten
     private static final int MAX_LOGS = 16;
-    //endregion
 
-    //region 1. Decl and Init Attribute
-    //endregion
 
-    //region 2. Konstruktoren
     private TestData() {
     }
-    //endregion
 
-    //region 3. Test Reservations
     public static synchronized List<Reservation> getTestReservations() {
         List<Reservation> testReservations = new ArrayList<>();
 
@@ -59,7 +52,5 @@ public class TestData {
 
         return testReservations;
     }
-    //endregion
-
 
 }
