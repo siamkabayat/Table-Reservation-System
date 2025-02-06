@@ -11,10 +11,10 @@
 
 <AnchorPane prefHeight="700.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.sbayat.sbtablereservationmanagementsystem.gui.DiningTableController">
    <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#cae5ff" height="600.0" stroke="BLACK" strokeType="INSIDE" width="125.0" AnchorPane.bottomAnchor="205.0" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="25.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d2f8e3" height="100.0" stroke="BLACK" strokeType="INSIDE" width="455.0" AnchorPane.leftAnchor="135.0" AnchorPane.rightAnchor="210.0" AnchorPane.topAnchor="25.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ebcadd" height="600.0" stroke="BLACK" strokeType="INSIDE" width="200.0" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="25.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f8fcd6" height="495.0" stroke="#030303" strokeType="INSIDE" width="455.0" AnchorPane.bottomAnchor="202.0" AnchorPane.leftAnchor="135.0" AnchorPane.rightAnchor="210.0" AnchorPane.topAnchor="130.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e5f2ff" height="600.0" stroke="BLACK" strokeType="INSIDE" width="125.0" AnchorPane.bottomAnchor="205.0" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="25.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f0fff6" height="100.0" stroke="BLACK" strokeType="INSIDE" width="455.0" AnchorPane.leftAnchor="135.0" AnchorPane.rightAnchor="210.0" AnchorPane.topAnchor="25.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f8eaf3" height="600.0" stroke="BLACK" strokeType="INSIDE" width="200.0" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="25.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fdffeb" height="495.0" stroke="#030303" strokeType="INSIDE" width="455.0" AnchorPane.bottomAnchor="202.0" AnchorPane.leftAnchor="135.0" AnchorPane.rightAnchor="210.0" AnchorPane.topAnchor="130.0" />
       <VBox alignment="TOP_CENTER" layoutX="18.0" layoutY="13.0" prefHeight="595.0" prefWidth="100.0" AnchorPane.topAnchor="30.0">
          <children>
             <Label alignment="TOP_CENTER" contentDisplay="TOP" text="By The Window">
@@ -138,7 +138,7 @@
       <Label layoutX="613.0" layoutY="273.0" text="Seats: 2" />
       <Label layoutX="723.0" layoutY="273.0" text="Seats 2" />
       <Label layoutX="669.0" layoutY="412.0" text="Seats: 4" />
-      <Button fx:id="selectTableButton" layoutX="297.0" layoutY="634.0" mnemonicParsing="false" onAction="#handleSelectTableButton" prefHeight="50.0" prefWidth="200.0" text="SELECT TABLE" AnchorPane.topAnchor="634.0">
+      <Button fx:id="selectTableButton" layoutX="297.0" layoutY="634.0" mnemonicParsing="false" onAction="#handleSelectTableButton" prefHeight="50.0" prefWidth="200.0" text="Select Table" AnchorPane.topAnchor="634.0">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
