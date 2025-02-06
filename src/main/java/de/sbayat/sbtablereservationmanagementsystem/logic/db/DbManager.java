@@ -156,16 +156,6 @@ public class DbManager {
 
     }
 
-    public void insertDiningTable(DiningTable diningTableToInsert) {
-        try {
-            if (this.isDatabaseOnline()) {
-                this.daoDiningTable.create(this.getDatabaseConnection(), diningTableToInsert);
-            }
-        } catch (Exception e) {
-            System.err.println(e.getMessage());
-        }
-    }
-
     public List<DiningTable> readDiningTables() {
         List<DiningTable> diningTables = new ArrayList<>();
 
@@ -199,19 +189,5 @@ public class DbManager {
             System.err.println(e.getMessage());
         }
     }
-
-    //TODO: remove this function if it is redundant in the code
-    public DiningTable getDiningTableByNumber(int tableNumber) {
-        try {
-            if (this.isDatabaseOnline()) {
-                return this.daoDiningTable.getDiningTableByNumber(this.getDatabaseConnection(), tableNumber);
-            }
-        } catch (Exception e) {
-            System.err.println(e.getMessage());
-        }
-        return null;
-    }
-
-
     //endregion
 }

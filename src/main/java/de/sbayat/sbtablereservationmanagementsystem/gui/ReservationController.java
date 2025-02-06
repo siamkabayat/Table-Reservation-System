@@ -25,16 +25,11 @@ public class ReservationController implements Initializable {
     private static final String[] RESERVATION_TIMES       = {"12:00", "13:00", "14:00", "17:00", "18:00", "19:00", "20:00", "21:00"};
     private static final String   TIMESLOT_NULL           = "timeSlot is NULL! Check FXML binding.";
     private static final String   NO_RESERVATION_SELECTED = "Error: No reservation selected for editing.";
-    private static final String EDIT_ALERT_TITLE = "Fill All";
-    private static final String FILL_ALL = "Please fill all of the Input fields.";
-    private static final String FILL_DATE_TIME_SIZE = "Fill Party Size, Date and Time to find a table.";
-    private static final String FILL_REQUIRED_FIELDS = "Fill Required Fields";
+    private static final String   EDIT_ALERT_TITLE        = "Fill All";
+    private static final String   FILL_ALL                = "Please fill all of the Input fields.";
+    private static final String   FILL_DATE_TIME_SIZE     = "Fill Party Size, Date and Time to find a table.";
+    private static final String   FILL_REQUIRED_FIELDS    = "Fill Required Fields";
 
-
-
-
-    // @FXML
-    // private TextField reservationId;
 
     @FXML
     private TextField customerName;
@@ -55,17 +50,10 @@ public class ReservationController implements Initializable {
     private TextField tableNumber;
 
     @FXML
-    private Button checkAvailability;
-
-    @FXML
     private Button saveReservationButton;
 
 
     private AddReservationCallback addReservationCallback;
-
-    public void setEditMode(boolean editMode) {
-        isEditMode = editMode;
-    }
 
     private boolean     isEditMode;
     private Reservation currentSelectedReservation;
@@ -109,7 +97,6 @@ public class ReservationController implements Initializable {
     private Reservation getReservationFromUi() {
         Reservation reservationFromUi = null;
 
-        //String id   = reservationId.getText();
         String nameText        = customerName.getText();
         String partySizeText   = partySize.getText();
         String dateText        = date.getText();
@@ -145,44 +132,6 @@ public class ReservationController implements Initializable {
             ++index;
         }
         return inputDataIsFilled;
-    }
-
-    @FXML
-    private void handleCheckAvailabilityButton() {
-        Reservation reservationFromUi = getReservationFromUi();
-
-        if (reservationFromUi == null) {
-            AlertUtility.showInputIsNotValidAlert(EDIT_ALERT_TITLE, FILL_ALL);
-            // TODO: is this return value correct?
-            return;
-        }
-
-        if (isReservationAvailable(reservationFromUi)) {
-            AlertUtility.showMessage("Table is Available.", "You may now save the reservation.");
-            saveReservationButton.setDisable(false);
-        } else {
-            AlertUtility.showWarningAlert("Table not Available!", "Please select another table or time slot");
-            saveReservationButton.setDisable(true);
-        }
-    }
-
-    @FXML
-    private boolean isReservationAvailable(Reservation inputReservation) {
-
-        List<Reservation> reservations = DbManager.getInstance().readReservations();
-
-        for (Reservation reservation : reservations) {
-            if (isEditMode && currentSelectedReservation != null &&
-                    reservation.getId() == currentSelectedReservation.getId()) {
-                continue;
-            }
-            if (inputReservation.getDate().equals(reservation.getDate()) &&
-                    inputReservation.getTime().equals(reservation.getTime()) &&
-                    inputReservation.getTableNumber() == reservation.getTableNumber()) {
-                return false;
-            }
-        }
-        return true;
     }
 
     @FXML
@@ -223,15 +172,14 @@ public class ReservationController implements Initializable {
 
             DiningTableController controller = loader.getController();
 
-            //TODO: make sure these fields are filled before opening the tables layout window
             if (isEditMode) {
                 int tableNumberInserted = Integer.parseInt(tableNumber.getText());
                 controller.setSelectedTableNumber(tableNumberInserted);
             }
 
-            String dateInserted      = date.getText();
-            String timeInserted      = timeSlot.getValue();
-            String    partySizeInsertedText = partySize.getText();
+            String dateInserted          = date.getText();
+            String timeInserted          = timeSlot.getValue();
+            String partySizeInsertedText = partySize.getText();
             String[] inputData = {
                     dateInserted,
                     timeInserted,
@@ -239,8 +187,8 @@ public class ReservationController implements Initializable {
             };
 
             if (isInputDataFilled(inputData)) {
-                int    partySizeInserted = Integer.parseInt(partySize.getText());
-                controller.setDateTimePartySize(dateInserted, timeInserted, partySizeInserted);
+                int partySizeInserted = Integer.parseInt(partySize.getText());
+                controller.updateLayoutData(dateInserted, timeInserted, partySizeInserted);
             } else {
                 AlertUtility.showInputIsNotValidAlert(FILL_REQUIRED_FIELDS, FILL_DATE_TIME_SIZE);
                 return;

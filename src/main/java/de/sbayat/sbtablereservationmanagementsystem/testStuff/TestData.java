@@ -28,20 +28,20 @@ public class TestData {
 
             String testCustomerName = "Robert";
             int    testPartySize    =  0;
-            String testDate         = "01-02-2025";
+            String testDate         = "2025-02-01";
             String testTime         = "18:30";
             String testPhoneNumber = "01763240017";
 
             if (index < 10) {
                 testCustomerName = "Andy";
                 testPartySize    = 5;
-                testDate         = "10-02-2025";
+                testDate         = "2025-02-02";
                 testTime         = "19:30";
 
             } else {
                 testCustomerName = "Freddy";
                 testPartySize    = 4;
-                testDate         = "02-02-2025";
+                testDate         = "2025-02-02";
                 testTime         = "20:00";
             }
 

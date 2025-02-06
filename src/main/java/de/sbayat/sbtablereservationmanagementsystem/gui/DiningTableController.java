@@ -14,6 +14,10 @@ import java.util.*;
 
 public class DiningTableController implements Initializable {
 
+    private static final String COLOR_DEFAULT     = "";
+    private static final String COLOR_LIGHT_GREEN = "-fx-background-color: lightgreen;";
+    private static final String COLOR_GRAY        = "-fx-background-color: gray;";
+    private static final String COLOR_RED         = "-fx-background-color: red;";
 
     @FXML
     Button tableButton1;
@@ -67,21 +71,14 @@ public class DiningTableController implements Initializable {
 
     private int selectedTableNumber = -1;
 
-    private String dateInserted;
-    private String timeInserted;
-    private int    partySizeInserted;
+    private String dateFromUi;
+    private String  timeFromUi;
+    private int     partySizeFromUi;
     private boolean isEditMode;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         mapButtonsToTables();
-    }
-    // TODO: change this stupid function name
-    public void setDateTimePartySize(String dateInserted, String timeInserted, int partySizeInserted) {
-        this.dateInserted      = dateInserted;
-        this.timeInserted      = timeInserted;
-        this.partySizeInserted = partySizeInserted;
-        updateTableButtonsStatus(dateInserted, timeInserted, partySizeInserted);
     }
 
     public void setSelectedTableNumber(int selectedTableNumber) {
@@ -108,16 +105,23 @@ public class DiningTableController implements Initializable {
         }
     }
 
+    public void updateLayoutData(String dateFromUi, String timeFromUi, int partySizeFromUi) {
+        this.dateFromUi      = dateFromUi;
+        this.timeFromUi      = timeFromUi;
+        this.partySizeFromUi = partySizeFromUi;
+        updateTableButtonsStatus(dateFromUi, timeFromUi, partySizeFromUi);
+    }
+
     @FXML
     private void handleTableClick(ActionEvent event) {
         Button      clickedButton = (Button) event.getSource();
         DiningTable selectedTable = tableButtonMap.get(clickedButton);
 
         if (previousButton != null && previousButton != clickedButton) {
-            previousButton.setStyle("");
+            previousButton.setStyle(COLOR_DEFAULT);
         }
 
-        clickedButton.setStyle("-fx-background-color: lightgreen;");
+        clickedButton.setStyle(COLOR_LIGHT_GREEN);
 
         if (selectedTable != null) {
             selectedTableNumber = selectedTable.getNumber();
@@ -149,7 +153,7 @@ public class DiningTableController implements Initializable {
             // Disable tables that do not match the party size
             if (table.getCapacity() < partySize || table.getCapacity() > partySize + 2) {
                 button.setDisable(true);
-                button.setStyle("-fx-background-color: gray;");
+                button.setStyle(COLOR_GRAY);
             }
         }
 
@@ -157,17 +161,15 @@ public class DiningTableController implements Initializable {
             String dateFromDatabase = reservation.getDate();
             String timeFromDatabase = reservation.getTime();
             int    tableNumber      = reservation.getTableNumber();
-            // TODO: capacity is calculated earlier using the map. think of removing the function getDiningTableByNumber!
-            int    capacity = DbManager.getInstance().getDiningTableByNumber(tableNumber).getCapacity();
-            Button button   = getButtonByTableNumber(tableNumber);
+            Button button           = getButtonByTableNumber(tableNumber);
             if ((date.equals(dateFromDatabase) && time.equals(timeFromDatabase))) {
                 if (button != null) {
                     if (tableNumber == selectedTableNumber) {
                         button.setDisable(false);
-                        button.setStyle("");
+                        button.setStyle(COLOR_DEFAULT);
                     } else {
                         button.setDisable(true);
-                        button.setStyle("-fx-background-color: red;");
+                        button.setStyle(COLOR_RED);
                     }
                 }
             }

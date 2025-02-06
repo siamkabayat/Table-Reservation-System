@@ -30,9 +30,27 @@ public class PrimaryWindowController implements Initializable {
     @FXML
     private ListView<Reservation> reservationsListView;
 
-    @FXML
-    private ListView<Reservation> reservationListView;
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        loadReservationsFromDatabase();
+        customizeListView();
+    }
+
+    @FXML
+    public void handleAddButton(ActionEvent actionEvent) throws IOException {
+        openReservationForm(false, null); // false → Add mode, no existing reservation
+    }
+
+    @FXML
+    public void handleEditButton(ActionEvent actionEvent) throws IOException {
+        Reservation selectedReservation = getSelectedReservation(); // Get the selected reservation
+        if (selectedReservation != null) {
+            openReservationForm(true, selectedReservation); // true → Edit mode, pass existing reservation
+        } else {
+            AlertUtility.showWarningAlert(NO_SELECTION_ALERT_TITLE, SELECT_TO_EDIT);
+        }
+    }
 
     private void openReservationForm(boolean isEditMode, Reservation currentSelectedReservation) throws IOException {
         try {
@@ -43,7 +61,6 @@ public class PrimaryWindowController implements Initializable {
 
             Parent root = loader.load();
 
-            //ReservationController controller = loader.getController();
             controller.setAddReservationCallback(reservation -> {
                 // Add new reservation to the ListView
                 reservationsListView.getItems().add(reservation);
@@ -62,12 +79,6 @@ public class PrimaryWindowController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        loadReservationsFromDatabase();
-        customizeListView();
     }
 
     private void customizeListView() {
@@ -93,25 +104,11 @@ public class PrimaryWindowController implements Initializable {
         reservationsListView.getItems().addAll(DbManager.getInstance().readReservations());
     }
 
-    @FXML
-    public void handleAddButton(ActionEvent actionEvent) throws IOException {
-        openReservationForm(false, null); // false → Add mode, no existing reservation
-    }
-
-    @FXML
-    public void handleEditButton(ActionEvent actionEvent) throws IOException {
-        Reservation selectedReservation = getSelectedReservation(); // Get the selected reservation
-        if (selectedReservation != null) {
-            openReservationForm(true, selectedReservation); // true → Edit mode, pass existing reservation
-        } else {
-            AlertUtility.showWarningAlert(NO_SELECTION_ALERT_TITLE, SELECT_TO_EDIT);
-        }
-    }
-
     private Reservation getSelectedReservation() {
         return reservationsListView.getSelectionModel().getSelectedItem();
     }
 
+    @FXML
     public void handleDeleteButton(ActionEvent actionEvent) {
         Reservation selectedReservation = getSelectedReservation();
         if (selectedReservation != null) {
