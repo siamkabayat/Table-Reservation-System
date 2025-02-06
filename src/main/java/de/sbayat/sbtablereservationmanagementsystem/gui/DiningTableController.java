@@ -14,10 +14,12 @@ import java.util.*;
 
 public class DiningTableController implements Initializable {
 
-    private static final String COLOR_DEFAULT     = "";
-    private static final String COLOR_LIGHT_GREEN = "-fx-background-color: lightgreen;";
-    private static final String COLOR_GRAY        = "-fx-background-color: gray;";
-    private static final String COLOR_RED         = "-fx-background-color: red;";
+    private static final String COLOR_DEFAULT         = "";
+    private static final String COLOR_LIGHT_GREEN     = "-fx-background-color: lightgreen;";
+    private static final String COLOR_GRAY            = "-fx-background-color: gray;";
+    private static final String COLOR_RED             = "-fx-background-color: red;";
+    private static final int    NO_VALID_TABLE_NUMBER = -1;
+
 
     @FXML
     Button tableButton1;
@@ -69,17 +71,23 @@ public class DiningTableController implements Initializable {
 
     private AddTableCallback addTableCallback;
 
-    private int selectedTableNumber = -1;
+    private int selectedTableNumber = NO_VALID_TABLE_NUMBER;
 
-    private String dateFromUi;
+    private String  dateFromUi;
     private String  timeFromUi;
     private int     partySizeFromUi;
     private boolean isEditMode;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        disableSelectButtonIfNoTableSelected();
         mapButtonsToTables();
     }
+
+    private void disableSelectButtonIfNoTableSelected() {
+        selectTableButton.setDisable(selectedTableNumber == NO_VALID_TABLE_NUMBER);
+    }
+
 
     public void setSelectedTableNumber(int selectedTableNumber) {
         this.selectedTableNumber = selectedTableNumber;
@@ -125,6 +133,7 @@ public class DiningTableController implements Initializable {
 
         if (selectedTable != null) {
             selectedTableNumber = selectedTable.getNumber();
+            selectTableButton.setDisable(false);
         }
 
         previousButton = clickedButton;
@@ -132,7 +141,7 @@ public class DiningTableController implements Initializable {
 
     @FXML
     private void handleSelectTableButton() {
-        if (selectedTableNumber != -1) {
+        if (selectedTableNumber != NO_VALID_TABLE_NUMBER) {
             addTableCallback.onAddTable(selectedTableNumber);
         }
         Stage stage = (Stage) selectTableButton.getScene().getWindow();
