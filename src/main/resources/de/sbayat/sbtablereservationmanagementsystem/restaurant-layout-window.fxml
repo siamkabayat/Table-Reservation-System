@@ -143,5 +143,39 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Button>
+      <VBox layoutX="2.0" layoutY="635.0" prefHeight="140.0" prefWidth="284.0" AnchorPane.leftAnchor="5.0">
+         <children>
+            <HBox prefHeight="19.0" prefWidth="284.0">
+               <children>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="RED" height="15.0" stroke="RED" strokeType="INSIDE" width="15.0" />
+                  <Label text="Reserved">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox prefHeight="21.0" prefWidth="284.0">
+               <children>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="GREY" height="15.0" stroke="GREY" strokeType="INSIDE" width="15.0" />
+                  <Label text="Unsuitable">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox prefHeight="32.0" prefWidth="284.0">
+               <children>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="LIGHTGREEN" height="15.0" stroke="LIGHTGREEN" strokeType="INSIDE" width="15.0" />
+                  <Label text="Selected">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
    </children>
 </AnchorPane>
