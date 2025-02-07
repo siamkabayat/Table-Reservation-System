@@ -25,6 +25,8 @@ public class AlertUtility {
     public static final String INVALID_GUESTS_MESSAGE = "Please enter a valid number for the guests.";
     public static final String INVALID_DATE_MESSAGE   = "Please enter the date in YYYY-MM-DD format.";
     public static final String INVALID_PHONE_MESSAGE  = "Phone number should only contain numbers.";
+    public static final String INVALID_TIME           = "Time Required";
+    public static final String INVALID_TIME_MESSAGE   = "Please select a time for the reservation.";
 
 
     public static void showInputIsNotValidAlert(String title, String message) {

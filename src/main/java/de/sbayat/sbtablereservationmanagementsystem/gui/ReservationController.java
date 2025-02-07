@@ -218,7 +218,6 @@ public class ReservationController implements Initializable {
 
             String[] inputData = {
                     dateInserted,
-                    timeInserted,
                     partySizeInsertedText
             };
 
@@ -232,6 +231,11 @@ public class ReservationController implements Initializable {
 
                 if (isDateNotValid(dateInserted)) {
                     AlertUtility.showInputIsNotValidAlert(AlertUtility.INVALID_DATE, AlertUtility.INVALID_DATE_MESSAGE);
+                    return;
+                }
+
+                if (timeInserted == null) {
+                    AlertUtility.showInputIsNotValidAlert(AlertUtility.INVALID_TIME, AlertUtility.INVALID_TIME_MESSAGE);
                     return;
                 }
 
