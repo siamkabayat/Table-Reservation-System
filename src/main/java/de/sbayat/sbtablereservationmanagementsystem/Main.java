@@ -13,7 +13,7 @@ public class Main extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/de/sbayat/sbtablereservationmanagementsystem/primary-window.fxml"));
         Parent     root       = fxmlLoader.load();
-        Scene      scene      = new Scene(root, 500, 400);
+        Scene      scene      = new Scene(root, 800, 600);
         stage.setTitle("Restaurant Reservation Manager");
         stage.setScene(scene);
         stage.show();

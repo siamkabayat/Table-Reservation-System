@@ -5,32 +5,50 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" prefHeight="400.0" prefWidth="500.0" spacing="20.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="de.sbayat.sbtablereservationmanagementsystem.gui.PrimaryWindowController">
+<VBox alignment="TOP_CENTER" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.sbayat.sbtablereservationmanagementsystem.gui.PrimaryWindowController">
     <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+        <Insets bottom="20.0" left="20.0" right="20.0" />
     </padding>
     <children>
-        <HBox alignment="TOP_CENTER" prefHeight="50.0" prefWidth="460.0">
+        <HBox alignment="TOP_CENTER" prefHeight="50.0" prefWidth="560.0">
             <children>
-                <Button fx:id="addNewReservation" alignment="TOP_CENTER" mnemonicParsing="false" onAction="#handleAddButton" prefHeight="10.0" prefWidth="120.0" text="New Reservation" textAlignment="CENTER" />
+                <Button fx:id="addNewReservation" alignment="TOP_CENTER" mnemonicParsing="false" onAction="#handleAddButton" prefHeight="20.0" prefWidth="150.0" text="New Reservation" textAlignment="CENTER">
+               <HBox.margin>
+                  <Insets bottom="20.0" />
+               </HBox.margin>
+               <font>
+                  <Font size="14.0" />
+               </font></Button>
+            </children>
+         <VBox.margin>
+            <Insets top="30.0" />
+         </VBox.margin>
+        </HBox>
+        <HBox alignment="TOP_CENTER" prefHeight="500.0" prefWidth="760.0">
+            <children>
+                <ListView fx:id="reservationsListView" prefHeight="500.0" prefWidth="760.0" />
             </children>
         </HBox>
-        <HBox prefHeight="250.0" prefWidth="200.0">
-            <children>
-                <ListView fx:id="reservationsListView" prefHeight="276.0" prefWidth="460.0" />
-            </children>
-        </HBox>
-        <VBox alignment="TOP_CENTER" prefHeight="90.0" prefWidth="460.0">
+        <VBox alignment="TOP_CENTER" prefHeight="250.0" prefWidth="560.0">
             <children>
                 <Button fx:id="editReservation" mnemonicParsing="false" onAction="#handleEditButton" prefHeight="10.0" prefWidth="120.0" text="Edit Selected" textAlignment="CENTER">
                     <VBox.margin>
-                        <Insets bottom="15.0" />
+                        <Insets bottom="15.0" top="40.0" />
                     </VBox.margin>
+               <font>
+                  <Font size="14.0" />
+               </font>
                 </Button>
-                <Button fx:id="deleteReservation" mnemonicParsing="false" onAction="#handleDeleteButton" prefHeight="10.0" prefWidth="120.0" text="Delete Selected" textAlignment="CENTER" />
+                <Button fx:id="deleteReservation" mnemonicParsing="false" onAction="#handleDeleteButton" prefHeight="10.0" prefWidth="120.0" text="Delete Selected" textAlignment="CENTER">
+               <font>
+                  <Font size="14.0" />
+               </font></Button>
             </children>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
         </VBox>
     </children>
 </VBox>
