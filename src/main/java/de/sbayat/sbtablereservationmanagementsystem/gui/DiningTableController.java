@@ -14,14 +14,14 @@ import java.util.*;
 
 /**
  * Class Description:
- *
+ * <p>
  * The DiningTableController class manages the display and interaction with dining tables in the Table Reservation
  * Management System. It is responsible for showing the table layout, enabling or disabling tables based on party size
  * and reservation status, and allowing the user to select a table for a reservation. The class maps buttons to tables,
  * and handles the logic for selecting a table, including validating table capacity and availability.
- *
+ * <p>
  * Key Features:
- *
+ * <p>
  * Displays buttons representing dining tables.
  * Maps buttons to tables from the database using DbManager.
  * Disables tables based on reservation status, party size, or table capacity.
@@ -172,7 +172,7 @@ public class DiningTableController implements Initializable {
     /**
      * Updates the button status based on the reservation data (disables buttons based on party size, table availability,
      * and reservation status).
-     * */
+     */
     private void updateTableButtonsStatus(String date, String time, int partySize) {
 
         List<Reservation> reservationsFromDatabase = DbManager.getInstance().readReservations();
@@ -198,8 +198,14 @@ public class DiningTableController implements Initializable {
             if ((date.equals(dateFromDatabase) && time.equals(timeFromDatabase))) {
                 if (button != null) {
                     if (tableNumber == selectedTableNumber) {
-                        button.setDisable(false);
-                        button.setStyle(COLOR_DEFAULT);
+                        int tableCapacity = Objects.requireNonNull(getDiningTableByNumber(tableNumber)).getCapacity();
+                        if (tableCapacity < partySize || tableCapacity > partySize + 2) {
+                            button.setDisable(true);
+                            button.setStyle(COLOR_GRAY);
+                        } else {
+                            button.setDisable(false);
+                            button.setStyle(COLOR_DEFAULT);
+                        }
                     } else {
                         button.setDisable(true);
                         button.setStyle(COLOR_RED);
@@ -208,6 +214,16 @@ public class DiningTableController implements Initializable {
             }
         }
     }
+
+    private DiningTable getDiningTableByNumber(int tableNumber) {
+        for (DiningTable table : tableButtonMap.values()) {
+            if (table.getNumber() == tableNumber) {
+                return table;
+            }
+        }
+        return null;
+    }
+
 
     private Button getButtonByTableNumber(int tableNumber) {
         for (Map.Entry<Button, DiningTable> entry : tableButtonMap.entrySet()) {

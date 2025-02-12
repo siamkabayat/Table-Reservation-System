@@ -20,16 +20,16 @@ import java.util.ResourceBundle;
 
 /**
  * Class Description:
- *
+ * <p>
  * The ReservationController class handles the functionality of the reservation form within the Table Reservation
  * Management System. It allows the user to add or edit reservation details such as the customer name, party size, date,
  * time, phone number, and table number. The form validates user inputs and ensures that the required fields are filled
  * correctly. The class interacts with the DbManager for database operations (inserting or updating reservations) and
  * utilizes AlertUtility to show validation messages. It also provides the ability to select a table from a dining table
  * layout window and assign it to the reservation.
- *
+ * <p>
  * Key Features:
- *
+ * <p>
  * Displays and validates reservation details (name, party size, date, time, etc.).
  * Handles both adding new reservations and editing existing ones.
  * Opens a dining table layout window to assign a table to the reservation.
@@ -92,6 +92,17 @@ public class ReservationController implements Initializable {
         updateTimeSlot();
         saveReservationButton.setDisable(false);
         tableNumber.setDisable(true);
+        addFieldChangeListeners();
+    }
+
+    private void addFieldChangeListeners() {
+        partySize.textProperty().addListener((observable, oldValue, newValue) -> disableSaveTable());
+        date.textProperty().addListener((observable, oldValue, newValue) -> disableSaveTable());
+        timeSlot.valueProperty().addListener((observable, oldValue, newValue) -> disableSaveTable());
+    }
+
+    private void disableSaveTable() {
+        saveReservationButton.setDisable(true);
     }
 
     public interface AddReservationCallback {
@@ -211,10 +222,6 @@ public class ReservationController implements Initializable {
             String timeInserted          = timeSlot.getValue();
             String partySizeInsertedText = partySize.getText();
 
-            if (!partySizeInsertedText.matches(NUMBER_TEMPLATE)) {
-                AlertUtility.showInputIsNotValidAlert(AlertUtility.INVALID_GUESTS, AlertUtility.INVALID_GUESTS_MESSAGE);
-                return;
-            }
 
             String[] inputData = {
                     dateInserted,
@@ -222,8 +229,12 @@ public class ReservationController implements Initializable {
             };
 
             if (isInputDataFilled(inputData)) {
-                int partySizeInserted = Integer.parseInt(partySize.getText());
+                if (!partySizeInsertedText.matches(NUMBER_TEMPLATE)) {
+                    AlertUtility.showInputIsNotValidAlert(AlertUtility.INVALID_GUESTS, AlertUtility.INVALID_GUESTS_MESSAGE);
+                    return;
+                }
 
+                int partySizeInserted = Integer.parseInt(partySize.getText());
                 if (partySizeInserted <= 0) {
                     AlertUtility.showInputIsNotValidAlert(AlertUtility.INVALID_GUESTS, AlertUtility.INVALID_GUESTS_MESSAGE);
                     return;
@@ -248,6 +259,7 @@ public class ReservationController implements Initializable {
             controller.setAddTableCallback(tableNum -> {
                 tableNumber.setText(String.valueOf(tableNum));
                 tableNumber.setDisable(true);
+                saveReservationButton.setDisable(false);
             });
 
             Stage diningTableStage = new Stage();
