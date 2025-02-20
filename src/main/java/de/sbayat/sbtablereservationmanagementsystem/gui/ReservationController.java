@@ -10,12 +10,15 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 /**
@@ -42,7 +45,7 @@ public class ReservationController implements Initializable {
     private static final String   TIMESLOT_NULL           = "timeSlot is NULL! Check FXML binding.";
     private static final String   NO_RESERVATION_SELECTED = "Error: No reservation selected for editing.";
     private static final String   RESOURCE                = "/de/sbayat/sbtablereservationmanagementsystem/restaurant-layout-window.fxml";
-    private static final String   DATE_TEMPLATE           = "\\d{4}-\\d{2}-\\d{2}";
+    private static final String   DATE_PATTERN            = "yyyy-MM-dd";
     private static final String   NUMBER_TEMPLATE         = "\\d+";
     private static final String   LAYOUT_TITLE            = "Dining Tables Layout";
 
@@ -54,7 +57,7 @@ public class ReservationController implements Initializable {
     private TextField partySize;
 
     @FXML
-    private TextField date;
+    private DatePicker date;
 
     @FXML
     private ComboBox<String> timeSlot;
@@ -84,7 +87,7 @@ public class ReservationController implements Initializable {
         if (isEditMode && currentSelectedReservation != null) {
             customerName.setText(currentSelectedReservation.getCustomerName());
             partySize.setText(currentSelectedReservation.getPartySize().toString());
-            date.setText(currentSelectedReservation.getDate());
+            date.setValue(currentSelectedReservation.getDate());
             timeSlot.setValue(currentSelectedReservation.getTime());
             phoneNumber.setText(currentSelectedReservation.getCustomerPhoneNumber());
             tableNumber.setText(currentSelectedReservation.getTableNumber().toString());
@@ -97,7 +100,7 @@ public class ReservationController implements Initializable {
 
     private void addFieldChangeListeners() {
         partySize.textProperty().addListener((observable, oldValue, newValue) -> disableSaveTable());
-        date.textProperty().addListener((observable, oldValue, newValue) -> disableSaveTable());
+        date.valueProperty().addListener((observable, oldValue, newValue) -> disableSaveTable());
         timeSlot.valueProperty().addListener((observable, oldValue, newValue) -> disableSaveTable());
     }
 
@@ -132,16 +135,16 @@ public class ReservationController implements Initializable {
         return inputDataIsFilled;
     }
 
-    private boolean isDateNotValid(String date) {
-        return !date.matches(DATE_TEMPLATE);
-    }
-
     @FXML
     private void handleSaveButton() {
 
-        String nameText        = customerName.getText();
-        String partySizeText   = partySize.getText();
-        String dateText        = date.getText();
+        String nameText      = customerName.getText();
+        String partySizeText = partySize.getText();
+
+        LocalDate         datePicked    = date.getValue();
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(DATE_PATTERN);
+        String            dateText      = datePicked.format(dateFormatter);
+
         String timeText        = timeSlot.getValue();
         String tableNumberText = tableNumber.getText();
         String phoneNumberText = phoneNumber.getText();
@@ -165,11 +168,6 @@ public class ReservationController implements Initializable {
             return;
         }
 
-        if (isDateNotValid(dateText)) {
-            AlertUtility.showInputIsNotValidAlert(AlertUtility.INVALID_DATE, AlertUtility.INVALID_DATE_MESSAGE);
-            return;
-        }
-
         if (!phoneNumberText.matches(NUMBER_TEMPLATE)) {
             AlertUtility.showInputIsNotValidAlert(AlertUtility.INVALID_PHONE, AlertUtility.INVALID_PHONE_MESSAGE);
             return;
@@ -180,7 +178,7 @@ public class ReservationController implements Initializable {
         int tableDedicated = Integer.parseInt(tableNumber.getText());
 
 
-        Reservation reservationFromUi = new Reservation(nameText, phoneNumberText, numberOfGuests, dateText, timeText, tableDedicated);
+        Reservation reservationFromUi = new Reservation(nameText, phoneNumberText, numberOfGuests, datePicked, timeText, tableDedicated);
 
 
         if (isEditMode) {
@@ -218,10 +216,11 @@ public class ReservationController implements Initializable {
                 controller.setSelectedTableNumber(tableNumberInserted);
             }
 
-            String dateInserted          = date.getText();
-            String timeInserted          = timeSlot.getValue();
-            String partySizeInsertedText = partySize.getText();
-
+            LocalDate         datePicked            = date.getValue();
+            DateTimeFormatter dateFormatter         = DateTimeFormatter.ofPattern(DATE_PATTERN);
+            String            dateInserted          = datePicked.format(dateFormatter);
+            String            timeInserted          = timeSlot.getValue();
+            String            partySizeInsertedText = partySize.getText();
 
             String[] inputData = {
                     dateInserted,
@@ -237,11 +236,6 @@ public class ReservationController implements Initializable {
                 int partySizeInserted = Integer.parseInt(partySize.getText());
                 if (partySizeInserted <= 0) {
                     AlertUtility.showInputIsNotValidAlert(AlertUtility.INVALID_GUESTS, AlertUtility.INVALID_GUESTS_MESSAGE);
-                    return;
-                }
-
-                if (isDateNotValid(dateInserted)) {
-                    AlertUtility.showInputIsNotValidAlert(AlertUtility.INVALID_DATE, AlertUtility.INVALID_DATE_MESSAGE);
                     return;
                 }
 

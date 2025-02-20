@@ -7,7 +7,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.sql.Date;
 import java.util.List;
 
 
@@ -46,7 +48,7 @@ public class DaoReservation implements Dao<Reservation> {
             statement.setString(statementParameterIndexCustomerName, modelToInsert.getCustomerName());
             statement.setString(statementParameterIndexCustomerPhoneNumber, modelToInsert.getCustomerPhoneNumber());
             statement.setInt(statementParameterIndexPartySize, modelToInsert.getPartySize());
-            statement.setString(statementParameterIndexDate, modelToInsert.getDate());
+            statement.setDate(statementParameterIndexDate, Date.valueOf(modelToInsert.getDate()));
             statement.setString(statementParameterIndexTime, modelToInsert.getTime());
             statement.setInt(statementParameterIndexTableNumber, modelToInsert.getTableNumber());
 
@@ -94,7 +96,7 @@ public class DaoReservation implements Dao<Reservation> {
             statement.setString(statementParameterIndexCustomerName, modelToUpdate.getCustomerName());
             statement.setString(statementParameterIndexCustomerPhoneNumber, modelToUpdate.getCustomerPhoneNumber());
             statement.setInt(statementParameterIndexPartySize, modelToUpdate.getPartySize());
-            statement.setString(statementParameterIndexDate, modelToUpdate.getDate());
+            statement.setDate(statementParameterIndexDate, Date.valueOf(modelToUpdate.getDate()));
             statement.setString(statementParameterIndexTime, modelToUpdate.getTime());
             statement.setInt(statementParameterIndexTableNumber, modelToUpdate.getTableNumber());
             statement.setInt(statementParameterIndexId, modelToUpdate.getId());
@@ -124,13 +126,13 @@ public class DaoReservation implements Dao<Reservation> {
 
     @Override
     public Reservation getModelFromResultSet(ResultSet resultSet) throws SQLException {
-        int    id                  = resultSet.getInt(COLUMN_ID);
-        String customerName        = resultSet.getString(COLUMN_CUSTOMER_NAME);
-        String customerPhoneNumber = resultSet.getString(COLUMN_CUSTOMER_PHONE_NUMBER);
-        int    partySize           = resultSet.getInt(COLUMN_PARTY_SIZE);
-        String date                = resultSet.getString(COLUMN_DATE);
-        String time                = resultSet.getString(COLUMN_TIME);
-        int    tableNumber         = resultSet.getInt(COLUMN_TABLE_NUMBER);
+        int       id                  = resultSet.getInt(COLUMN_ID);
+        String    customerName        = resultSet.getString(COLUMN_CUSTOMER_NAME);
+        String    customerPhoneNumber = resultSet.getString(COLUMN_CUSTOMER_PHONE_NUMBER);
+        int       partySize           = resultSet.getInt(COLUMN_PARTY_SIZE);
+        LocalDate date                = resultSet.getDate(COLUMN_DATE).toLocalDate();
+        String    time                = resultSet.getString(COLUMN_TIME);
+        int       tableNumber         = resultSet.getInt(COLUMN_TABLE_NUMBER);
 
         return new Reservation(
                 id,

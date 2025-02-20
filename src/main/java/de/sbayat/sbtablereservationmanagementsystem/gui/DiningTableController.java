@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.*;
 
 /**
@@ -191,10 +192,10 @@ public class DiningTableController implements Initializable {
         }
         // iterate through reservations and disable tables that are reserved for the sate date and time and give them red color
         for (Reservation reservation : reservationsFromDatabase) {
-            String dateFromDatabase = reservation.getDate();
-            String timeFromDatabase = reservation.getTime();
-            int    tableNumber      = reservation.getTableNumber();
-            Button button           = getButtonByTableNumber(tableNumber);
+            LocalDate dateFromDatabase = reservation.getDate();
+            String    timeFromDatabase = reservation.getTime();
+            int       tableNumber      = reservation.getTableNumber();
+            Button    button           = getButtonByTableNumber(tableNumber);
             if ((date.equals(dateFromDatabase) && time.equals(timeFromDatabase))) {
                 if (button != null) {
                     if (tableNumber == selectedTableNumber) {

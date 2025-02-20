@@ -98,6 +98,7 @@ public class PrimaryWindowController implements Initializable {
     }
 
     private void customizeListView() {
+        // Lambda expression: listView -> new ListCell<Reservation>() {...}
         reservationsListView.setCellFactory(listView -> new ListCell<>() {
             @Override
             protected void updateItem(Reservation reservation, boolean empty) {

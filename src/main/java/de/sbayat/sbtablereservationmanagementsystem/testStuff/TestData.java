@@ -2,8 +2,10 @@ package de.sbayat.sbtablereservationmanagementsystem.testStuff;
 
 import de.sbayat.sbtablereservationmanagementsystem.model.Reservation;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class TestData {
 
@@ -20,21 +22,21 @@ public class TestData {
             Reservation testReservation = new Reservation();
 
             String testCustomerName = "Robert";
-            int    testPartySize    =  0;
-            String testDate         = "2025-02-01";
-            String testTime         = "18:30";
+            int       testPartySize =  0;
+            LocalDate testDate      = LocalDate.of(2025, 2, 2);
+            String    testTime      = "18:30";
             String testPhoneNumber = "01763240017";
 
             if (index < 10) {
                 testCustomerName = "Andy";
                 testPartySize    = 5;
-                testDate         = "2025-02-02";
+                testDate         = LocalDate.of(2025, 3, 2);;
                 testTime         = "19:30";
 
             } else {
                 testCustomerName = "Freddy";
                 testPartySize    = 4;
-                testDate         = "2025-02-02";
+                testDate         = LocalDate.of(2025, 2, 12);
                 testTime         = "20:00";
             }
 
