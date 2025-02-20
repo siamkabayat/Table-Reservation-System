@@ -18,6 +18,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
@@ -41,7 +42,7 @@ import java.util.ResourceBundle;
  */
 public class ReservationController implements Initializable {
 
-    private static final String[] RESERVATION_TIMES       = {"12:00", "13:00", "14:00", "17:00", "18:00", "19:00", "20:00", "21:00"};
+    private static final String[] RESERVATION_TIMES       = {"10:00", "11:00", "12:00", "13:00", "14:00", "17:00", "18:00", "19:00", "20:00", "21:00"};
     private static final String   TIMESLOT_NULL           = "timeSlot is NULL! Check FXML binding.";
     private static final String   NO_RESERVATION_SELECTED = "Error: No reservation selected for editing.";
     private static final String   RESOURCE                = "/de/sbayat/sbtablereservationmanagementsystem/restaurant-layout-window.fxml";
@@ -216,14 +217,30 @@ public class ReservationController implements Initializable {
                 controller.setSelectedTableNumber(tableNumberInserted);
             }
 
-            LocalDate         datePicked            = date.getValue();
-            DateTimeFormatter dateFormatter         = DateTimeFormatter.ofPattern(DATE_PATTERN);
-            String            dateInserted          = datePicked.format(dateFormatter);
-            String            timeInserted          = timeSlot.getValue();
-            String            partySizeInsertedText = partySize.getText();
+            LocalDate datePicked = date.getValue();
+            LocalDate today      = LocalDate.now();
+
+            if (datePicked.isBefore(today)) {
+                AlertUtility.showInputIsNotValidAlert(AlertUtility.INVALID_DATE, AlertUtility.INVALID_DATE_MESSAGE);
+                return;
+            }
+
+            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(DATE_PATTERN);
+            String            dateAsString  = datePicked.format(dateFormatter);
+
+            String    timeInserted = timeSlot.getValue();
+            LocalTime selectedTime = LocalTime.parse(timeInserted);
+            LocalTime now          = LocalTime.now();
+
+            if (selectedTime.isBefore(now)) {
+                AlertUtility.showInputIsNotValidAlert(AlertUtility.INVALID_TIME, AlertUtility.INVALID_TIME_MESSAGE);
+                return;
+            }
+
+            String partySizeInsertedText = partySize.getText();
 
             String[] inputData = {
-                    dateInserted,
+                    dateAsString,
                     partySizeInsertedText
             };
 
@@ -240,11 +257,12 @@ public class ReservationController implements Initializable {
                 }
 
                 if (timeInserted == null) {
-                    AlertUtility.showInputIsNotValidAlert(AlertUtility.INVALID_TIME, AlertUtility.INVALID_TIME_MESSAGE);
+                    AlertUtility.showInputIsNotValidAlert(AlertUtility.TIME_REQUIRED, AlertUtility.TIME_REQUIRED_MESSAGE);
                     return;
                 }
 
-                controller.updateLayoutData(dateInserted, timeInserted, partySizeInserted);
+                controller.updateLayoutData(datePicked, timeInserted, partySizeInserted);
+
             } else {
                 AlertUtility.showInputIsNotValidAlert(AlertUtility.FILL_REQUIRED_FIELDS, AlertUtility.FILL_DATE_TIME_SIZE);
                 return;

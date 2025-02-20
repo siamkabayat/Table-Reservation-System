@@ -93,10 +93,10 @@ public class DiningTableController implements Initializable {
 
     private int selectedTableNumber = NO_VALID_TABLE_NUMBER;
 
-    private String  dateFromUi;
-    private String  timeFromUi;
-    private int     partySizeFromUi;
-    private boolean isEditMode;
+    private LocalDate dateFromUi;
+    private String    timeFromUi;
+    private int       partySizeFromUi;
+    private boolean   isEditMode;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -135,7 +135,7 @@ public class DiningTableController implements Initializable {
     }
 
     //Updates the layout data with the selected date, time, and party size and then updates the table button statuses accordingly.
-    public void updateLayoutData(String dateFromUi, String timeFromUi, int partySizeFromUi) {
+    public void updateLayoutData(LocalDate dateFromUi, String timeFromUi, int partySizeFromUi) {
         this.dateFromUi      = dateFromUi;
         this.timeFromUi      = timeFromUi;
         this.partySizeFromUi = partySizeFromUi;
@@ -174,7 +174,7 @@ public class DiningTableController implements Initializable {
      * Updates the button status based on the reservation data (disables buttons based on party size, table availability,
      * and reservation status).
      */
-    private void updateTableButtonsStatus(String date, String time, int partySize) {
+    private void updateTableButtonsStatus(LocalDate date, String time, int partySize) {
 
         List<Reservation> reservationsFromDatabase = DbManager.getInstance().readReservations();
         for (Map.Entry<Button, DiningTable> entry : tableButtonMap.entrySet()) {
